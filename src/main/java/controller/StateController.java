@@ -5,8 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * Created by Jacob on 11/17/17.
  *
@@ -14,14 +12,14 @@ import java.io.IOException;
  *
  */
 
-enum View { LOGIN, SERVICE_ENTRY, OPERATOR }
+enum View { LOGIN, SERVICE_ENTRY, OPERATOR, CHOICE }
 
 public class StateController {
 
     private static StateController sc;
 
-    private Parent login, service, operator;
-    private Scene currentScene, loginScene, serviceScene, operatorScene;
+    private Parent login, service, operator, choice;
+    private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene;
     private Stage primaryStage;
 
 
@@ -47,17 +45,19 @@ public class StateController {
 
             login = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
             service = FXMLLoader.load(getClass().getResource("../view/service_entry.fxml"));
+            choice = FXMLLoader.load(getClass().getResource("../view/choice.fxml"));
             operator = FXMLLoader.load(getClass().getResource("../view/operator.fxml"));
 
             loginScene = new Scene(login, 600, 700);
             serviceScene = new Scene(service, 600, 700);
+            choiceScene = new Scene(choice, 600, 700);
             operatorScene = new Scene(operator, 600, 700);
 
 
             currentScene = loginScene;
 
             //Set stylesheet for current
-            currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
+            //currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +77,8 @@ public class StateController {
             currentScene = loginScene;
         else if(v == View.SERVICE_ENTRY)
             currentScene = serviceScene;
+        else if(v == View.CHOICE)
+            currentScene = choiceScene;
         else if(v == View.OPERATOR)
             currentScene = operatorScene;
 

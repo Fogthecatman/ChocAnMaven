@@ -11,4 +11,14 @@
     -fx-padding: 10px;
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
+
+}
+
+.jfx-button:armed,
+.jfx-button:hover,
+.jfx-button:focused,
+.jfx-button {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
+    -fx-background-radius: 3px;
+    -fx-background-insets: 0px;
 }

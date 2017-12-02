@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 import model.User;
 
 public class OperatorController  {
@@ -10,11 +11,13 @@ public class OperatorController  {
 
     private StateController sc;
 
+    public TextField idField;
+
     public OperatorController() {
         sc = StateController.getInstance();
     }
 
-    public void serviceEntry(ActionEvent actionEvent) {
-        sc.setView(View.SERVICE_ENTRY);
+    public void validateID(ActionEvent actionEvent) {
+        //Validate ID for whichever table we are accessing
     }
 }

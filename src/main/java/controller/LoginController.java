@@ -64,7 +64,7 @@ public class LoginController {
         }
         */
 
-        sc.setView(View.OPERATOR);
+        sc.setView(View.CHOICE);
     }
 
 
