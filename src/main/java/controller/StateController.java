@@ -83,7 +83,7 @@ public class StateController {
             currentScene = operatorScene;
 
         //Set stylesheet for current
-        currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
+        //currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
 
         primaryStage.setScene(currentScene);
         primaryStage.show();
