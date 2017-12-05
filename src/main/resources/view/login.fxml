@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <GridPane
         alignment="center"
         xmlns="http://javafx.com/javafx"
@@ -14,7 +15,7 @@
     <TextField GridPane.rowIndex="1" fx:id="userField" />
 
     <HBox GridPane.rowIndex="4" alignment="BOTTOM_RIGHT">
-        <Button text="Submit" onAction="#submit" />
+        <JFXButton text="Submit" onAction="#submit" />
     </HBox>
 
     <Label GridPane.rowIndex="5" fx:id="errorLabel"/>

@@ -65,7 +65,7 @@ public class StateController {
 
 
         //Main event
-        primaryStage.setTitle("ChocoAn Login");
+        primaryStage.setTitle("ChocoAn");
         primaryStage.setScene(currentScene);
         primaryStage.show();
     }

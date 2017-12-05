@@ -23,7 +23,7 @@ public class ChoiceController {
     public void printReports(ActionEvent actionEvent) {
     }
 
-    public void editRecords(ActionEvent actionEvent) {
+    public void editUsers(ActionEvent actionEvent) {
         sc.setView(View.OPERATOR);
     }
 }

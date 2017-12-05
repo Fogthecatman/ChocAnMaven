@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane
-        alignment="CENTER"
-        xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="controller.ChoiceController"
-        prefHeight="400.0" prefWidth="600.0">
-
-    <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="Service" onAction="#serviceEntry" />
-    <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="Reports" onAction="#printReports" />
-    <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="Edit Records" onAction="#editRecords" />
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoiceController">
+   <children>
+      <JFXButton style="-fx-background-color: #e3e3e3;" text="Service">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Roboto Slab Regular" size="14.0" />
+         </font></JFXButton>
+      <JFXButton style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Roboto Slab Regular" size="14.0" />
+         </font></JFXButton>
+      <JFXButton style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="6" onAction="#editUsers">
+         <font>
+            <Font name="Roboto Slab Regular" size="14.0" />
+         </font></JFXButton>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>
