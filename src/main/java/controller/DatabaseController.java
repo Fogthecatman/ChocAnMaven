@@ -16,9 +16,6 @@ public class DatabaseController {
     {
         try
         {
-            //@TODO Jacob - I believe the problem it is having is from the computer not having JDBC drivers
-            //I will check this when I get back to school
-
             // create our mysql database connection
             String hostName = "chocanbbj.database.windows.net";
             String dbName = "ChocAn";
@@ -35,7 +32,7 @@ public class DatabaseController {
 
             // execute the query, and get a java resultset
             ResultSet res = st.executeQuery(query);
-            st.close();
+            //st.close();
             System.out.println("Connected");
             System.out.println(res.toString());
             return res;
@@ -182,7 +179,7 @@ public class DatabaseController {
 
     public String getChocAnProviderValidation(int proNumber)
     {
-        return String.format("select 1 from prov_tbl where prov_id = %d", proNumber);
+        return String.format("select * from prov_tbl where prov_id = %d", proNumber);
     }
 
 }

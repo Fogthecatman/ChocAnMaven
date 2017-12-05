@@ -2,8 +2,8 @@ package util;
 
 public class Regex {
     public static boolean characterLength(String s, int limit) {
-        if(s.length() > limit) return false;
+        if(s.length() == limit) return true;
 
-        return true;
+        return false;
     }
 }
