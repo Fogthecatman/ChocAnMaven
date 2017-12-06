@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.lang.Integer;
 import model.User;
+import util.Regex;
 
 public class ServiceEntryController {
 
@@ -24,6 +25,11 @@ public class ServiceEntryController {
     //Gets data from UI's text fields, writes values to database
     //@TODO: Need to implement some way to prevent submission if field have invalid data
     public void submit(ActionEvent actionEvent) {
+
+        if(!Regex.date(dateServiceField.getText())) {
+            showError("Please format date as ##/##/####");
+        }
+
        int serviceID = Integer.parseInt(serviceIdField.getText());
        String comment = commentArea.getText();
        int memberID = Integer.parseInt(memberIdField.getText());
@@ -31,11 +37,12 @@ public class ServiceEntryController {
 
        //Write values to database
         //Display "Submission successful on GUI when completed
+        showError("Written to Database!");
     }
 
     public void cancel(ActionEvent actionEvent) {
         //@TODO This call throws an error due to the changes in scenes. Need help fixing.
-        sc.setView(View.OPERATOR);
+        sc.setView(View.CHOICE);
     }
 
     private void showError(String error) {

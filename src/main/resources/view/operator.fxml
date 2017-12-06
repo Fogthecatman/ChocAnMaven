@@ -2,41 +2,40 @@
 
 <?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OperatorController">
    <children>
-      <JFXTextField labelFloat="true" promptText="ID" GridPane.rowIndex="1" fx:id="idField">
+      <JFXTextField labelFloat="true" promptText="ID" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXTextField labelFloat="true" promptText="Name" GridPane.rowIndex="2" fx:id="nameField">
+      <JFXTextField labelFloat="true" promptText="Name" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXTextField
-              labelFloat="true"
-              promptText="Address"
-              GridPane.columnSpan="3"
-              GridPane.rowIndex="3"
-                fx:id="addressField">
+      <JFXTextField fx:id="AddressField" labelFloat="true" promptText="Address" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXTextField labelFloat="true" promptText="City" GridPane.rowIndex="4" fx:id="cityField">
+      <JFXTextField labelFloat="true" promptText="City" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXTextField labelFloat="true" promptText="State" GridPane.rowIndex="5" fx:id="stateField">
+      <JFXTextField labelFloat="true" promptText="State" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXTextField labelFloat="true" promptText="Zip" GridPane.rowIndex="6" fx:id="zipField">
+      <JFXTextField labelFloat="true" promptText="Zip" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>

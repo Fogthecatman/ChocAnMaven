@@ -10,24 +10,17 @@
 
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoiceController">
    <children>
-      <JFXButton style="-fx-background-color: #e3e3e3;" text="Service">
+      <JFXButton onAction="#serviceEntry" ripplerFill="BLACK" style="-fx-background-color: #e3e3e3;" text="Service">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
-         <font>
-            <Font name="Roboto Slab Regular" size="14.0" />
-         </font></JFXButton>
+      </JFXButton>
       <JFXButton style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
-         <font>
-            <Font name="Roboto Slab Regular" size="14.0" />
-         </font></JFXButton>
-      <JFXButton style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="6" onAction="#editUsers">
-         <font>
-            <Font name="Roboto Slab Regular" size="14.0" />
-         </font></JFXButton>
+      </JFXButton>
+      <JFXButton onAction="#editUsers" style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="6" />
    </children>
    <columnConstraints>
       <ColumnConstraints />

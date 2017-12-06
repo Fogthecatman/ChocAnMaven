@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,11 +21,11 @@ public class LoginController {
     private StateController sc;
     private DatabaseController db;
 
-    public TextField userField;
+    public JFXTextField userField;
 
     public LoginController() {
         sc = StateController.getInstance();
-        userField = new TextField();
+        userField = new JFXTextField();
         db = new DatabaseController();
         init();
     }
@@ -74,6 +75,8 @@ public class LoginController {
 
     //@TODO regex validation for passing values
     public void submit(ActionEvent actionEvent) throws IOException {
+
+        System.out.println(userField.getText() + " length:" + userField.getText().length());
 
         if(!Regex.characterLength(userField.getText(), 4)){
             showError("Invalid ID length.");
