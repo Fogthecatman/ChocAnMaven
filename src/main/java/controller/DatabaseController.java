@@ -80,6 +80,21 @@ public class DatabaseController {
         }
     }
 
+    public void executeUpdateQuery(String query){
+        try
+        {
+            // create the java statement
+            Statement st = conn.createStatement();
+
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Gets the Managers weekly report. To get the total number of providers
      * just get the length of the result set since only providers who provided
@@ -217,6 +232,10 @@ public class DatabaseController {
         return String.format("select * from prov_tbl where prov_id = %d", proNumber);
     }
 
+    public  String getLargestMemberID(){
+        return String.format("select MAX(mem_id) FROM mem_tbl");
+    }
+
     //String array coming in is all properties to create a new user
     public void createNewMember(String[] props) {
         String query = "insert into mem_tbl values (";
@@ -232,6 +251,6 @@ public class DatabaseController {
         query += ")";
         System.out.println(query);
 
-        executeSql(query);
+        executeUpdateQuery(query);
     }
 }

@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
 
 /**
  * Created by Jacob on 11/17/17.
@@ -21,7 +22,7 @@ public class StateController {
     private Parent login, service, operator, choice;
     private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene;
     private Stage primaryStage;
-
+    
 
     protected StateController() {
         //This is only here to stop compilation errors

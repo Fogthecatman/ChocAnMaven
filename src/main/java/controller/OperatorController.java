@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import model.User;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class OperatorController  {
 
@@ -50,7 +51,27 @@ public class OperatorController  {
 
     public void createNewUser() {
         String[] props = new String[7];
-        props[0] = "1111"; //@Todo create way to make the mem_id next id from list
+        ResultSet rs = db.executeSql(db.getLargestMemberID());
+        int maxID = 0;
+        try{
+            if(rs.next()) {
+                maxID = rs.getInt(1);
+            }
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
+        if(maxID == 0){
+            //@TODO: Validation for id
+            // Not 0
+            //Also not more than 4 digits
+        }
+        else
+            maxID ++;
+
+
+        props[0] = "" + maxID; //@Todo create way to make the mem_id next id from list
         props[1] = "'" + nameField.getText()+"'";
         props[2] = "'" + addressField.getText()+"'";
         props[3] = "'" + cityField.getText()+"'";
