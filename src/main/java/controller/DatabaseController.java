@@ -1,40 +1,75 @@
 package controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.String;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * Created by Ben on 11/14/17.
  */
 public class DatabaseController {
 
+    private static DatabaseController db;
+    private InputStream input;
+    private Properties prop;
+    private Connection conn;
+
+    public DatabaseController() {
+
+        //Get connection string data from properties file
+        try {
+            input = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+            prop = new Properties();
+            prop.load(input);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up the connection to DB
+        getConnection();
+    }
+
+    public static DatabaseController getInstance() {
+        if(db == null) {
+            db = new DatabaseController();
+        }
+        return db;
+    }
+
+    public void getConnection() {
+        // create our mysql database connection
+        String hostName = prop.getProperty("dbHostName");
+        String dbName = prop.getProperty("dbName");
+        String user = prop.getProperty("userName");
+        String password = prop.getProperty("password");
+
+        String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+
+        try {
+            conn = DriverManager.getConnection(url);
+            System.out.println("Connected");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public ResultSet executeSql(String query)
     {
         try
         {
-            // create our mysql database connection
-            String hostName = "chocanbbj.database.windows.net";
-            String dbName = "ChocAn";
-            String user = "super@chocanbbj";
-            String password = "bbjadmin=1";
-
-            String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
-
-            //String url = "jdbc:sqlserver://chocanbbj.database.windows.net:1433;databaseName=chocanbbj;user=super;password=bbjadmin=1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-            Connection conn = DriverManager.getConnection(url);
-
             // create the java statement
             Statement st = conn.createStatement();
 
             // execute the query, and get a java resultset
             ResultSet res = st.executeQuery(query);
-            //st.close();
-            System.out.println("Connected");
-            System.out.println(res.toString());
+
             return res;
         }
         catch (Exception e)
@@ -174,7 +209,7 @@ public class DatabaseController {
 
     public String getChocAnMemberValidation(int memNumber)
     {
-        return String.format("select 1 from mem_tbl where mem_id = %d", memNumber);
+        return String.format("select * from mem_tbl where mem_id = %d", memNumber);
     }
 
     public String getChocAnProviderValidation(int proNumber)
@@ -182,4 +217,21 @@ public class DatabaseController {
         return String.format("select * from prov_tbl where prov_id = %d", proNumber);
     }
 
+    //String array coming in is all properties to create a new user
+    public void createNewMember(String[] props) {
+        String query = "insert into mem_tbl values (";
+
+        for(int i = 0; i < props.length; i++) {
+            query += props[i];
+
+            if(i < props.length - 1) {
+                query += ", ";
+            }
+        }
+
+        query += ")";
+        System.out.println(query);
+
+        executeSql(query);
+    }
 }

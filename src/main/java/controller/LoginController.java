@@ -26,15 +26,8 @@ public class LoginController {
     public LoginController() {
         sc = StateController.getInstance();
         userField = new JFXTextField();
-        db = new DatabaseController();
-        init();
+        db = DatabaseController.getInstance();
     }
-
-
-    private void init() {
-
-    }
-
 
     //Validates id user enters in LoginView
     public boolean validate(int id){
