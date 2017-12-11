@@ -232,8 +232,19 @@ public class DatabaseController {
         return String.format("select * from prov_tbl where prov_id = %d", proNumber);
     }
 
+    public String getChocAnOperatorValidation(int oprNumber)
+    {
+        return String.format("select * from oper_tbl where oper_id = %d", oprNumber);
+    }
+
+    public String getChocAnManagerValidation(int manNumber)
+    {
+        return String.format("select * from manager_tbl where man_id = %d", manNumber);
+    }
+
+
     public  String getLargestMemberID(){
-        return String.format("select MAX(mem_id) FROM mem_tbl");
+        return "select MAX(mem_id) FROM mem_tbl";
     }
 
     //String array coming in is all properties to create a new user

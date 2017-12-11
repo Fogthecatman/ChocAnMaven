@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 public class ServiceEntryController implements Initializable, FxmlController {
 
     private StateController sc;
+    private DatabaseController db;
 
     public Label errorLabel;
 
@@ -38,6 +41,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public ServiceEntryController() {
         sc = StateController.getInstance();
+        db = DatabaseController.getInstance();
     }
 
     @Override
@@ -109,6 +113,18 @@ public class ServiceEntryController implements Initializable, FxmlController {
     }
 
     public void validateID(ActionEvent actionEvent) {
+        int memID = Integer.parseInt(memberIdField.getText());
+        boolean notEmpty = false;
+        ResultSet rs = db.executeSql(db.getChocAnMemberValidation(memID));
+
+        try{
+            notEmpty = rs.next();
+        }
+        catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+        //@TODO: Need to figure out what to do when it's validated
     }
 
     public void validateService(ActionEvent actionEvent) {
