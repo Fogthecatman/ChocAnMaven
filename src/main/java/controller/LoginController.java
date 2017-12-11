@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.User;
 import util.Regex;
 
 import javax.swing.plaf.nimbus.State;
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 /**
  * Created by Jacob on 11/6/17.
  */
-public class LoginController {
+public class LoginController implements FxmlController {
 
     public Label errorLabel;
     private StateController sc;
@@ -23,10 +24,13 @@ public class LoginController {
 
     public JFXTextField userField;
 
+    private User u;
+
     public LoginController() {
         sc = StateController.getInstance();
         userField = new JFXTextField();
         db = DatabaseController.getInstance();
+        u = User.getInstance();
     }
 
     //Validates id user enters in LoginView
@@ -35,6 +39,8 @@ public class LoginController {
         boolean notEmpty = false;
         ResultSet rs = db.executeSql(db.getChocAnProviderValidation(id));
 
+        String name = "";
+
         try{
             notEmpty = rs.next();
             /*if(notEmpty){
@@ -42,11 +48,18 @@ public class LoginController {
                 createUser(id);
 
             }*/
+
+            //Get data for createUser() from returned Result Set
+            name = rs.getString(2);
+
         }
         catch(Exception e){
             e.printStackTrace();
-            System.err.println("blah");
         }
+
+
+        createUser(id, name);
+
 
         return notEmpty;
     }
@@ -55,15 +68,7 @@ public class LoginController {
     //Returns string (subject to change) with role, to populate GUI with proper View
     //@TODO: Populate role_table with values
     public String getRole(){
-        //Query roleDB with user's id
-        //Get role as String
-        //return role to *********** to populate GUI w/ proper view
-
-        return null; //Null til we implement properly
-    }
-
-    public void run() {
-
+        return u.getPermissionLevel();
     }
 
     //@TODO regex validation for passing values
@@ -87,13 +92,20 @@ public class LoginController {
 
     }
 
-    private void createUser(int id){
-        System.out.println("in createUser");
+    private void createUser(int id, String name){
+        System.out.println("Creating User");
+        u.setName(name);
+        u.setID(id);
     }
 
 
 
     private void showError(String error) {
         errorLabel.setText(error);
+    }
+
+    @Override
+    public void updateUser() {
+        return;
     }
 }

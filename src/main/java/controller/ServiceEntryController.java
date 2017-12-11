@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-public class ServiceEntryController implements Initializable {
+public class ServiceEntryController implements Initializable, FxmlController {
 
     private StateController sc;
 
@@ -34,6 +34,8 @@ public class ServiceEntryController implements Initializable {
     public JFXTextField serviceIdField;
     public JFXTextField memberIdField;
 
+    private  RequiredFieldValidator serviceRf, serviceRf2;
+
     public ServiceEntryController() {
         sc = StateController.getInstance();
     }
@@ -45,22 +47,27 @@ public class ServiceEntryController implements Initializable {
         dateSelector.setValue(LocalDate.now());
         dateSelector.setDefaultColor(Color.rgb(40, 59, 185));
 
-        RequiredFieldValidator rf = new RequiredFieldValidator();
-        RequiredFieldValidator rf2 = new RequiredFieldValidator();
+        serviceRf = new RequiredFieldValidator();
+        serviceRf2 = new RequiredFieldValidator();
 
-        rf.setMessage("Input Required");
-        rf2.setMessage("Input Required");
 
-        serviceIdField.getValidators().add(rf);
+        //http://useof.org/java-open-source/com.jfoenix.validation.RequiredFieldValidator
+
+        serviceRf.setMessage("Input Required");
+        serviceRf2.setMessage("Must be 4 Characters");
 
         serviceIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
-            if(!newValue) {
-                System.out.println("validating");
+            //if(!newValue) {
+                //serviceIdField.getValidators().add(serviceRf);
+                //serviceIdField.validate();
+            //}
+            if (!validateServiceID(serviceIdField.getText())) {
+                serviceIdField.getValidators().add(serviceRf2);
                 serviceIdField.validate();
             }
         });
 
-        memberIdField.getValidators().add(rf2);
+        //memberIdField.getValidators().add(rf2);
 
         memberIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
             if(!newValue) {
@@ -96,4 +103,21 @@ public class ServiceEntryController implements Initializable {
         errorLabel.setText(error);
     }
 
+    @Override
+    public void updateUser() {
+
+    }
+
+    public void validateID(ActionEvent actionEvent) {
+    }
+
+    public void validateService(ActionEvent actionEvent) {
+    }
+
+    //Here is where we validate service codes, we can make a call do DB here
+    private boolean validateServiceID(String id) {
+        boolean valid = (id.length() == 4);
+        System.out.println(id + " validating " + valid);
+        return valid;
+    }
 }

@@ -10,12 +10,12 @@
    <children>
    
        <Label fx:id="errorLabel" GridPane.rowIndex="9" />
-      <JFXButton fx:id="validateIdBtn" style="-fx-background-color: e3e3e3;" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <JFXButton onAction="#validateID" fx:id="validateIdBtn" style="-fx-background-color: e3e3e3;" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="40.0" left="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton fx:id="validateServiceBtn" style="-fx-background-color: e3e3e3;" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <JFXButton onAction="#validateService" fx:id="validateServiceBtn" style="-fx-background-color: e3e3e3;" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="40.0" left="20.0" />
          </GridPane.margin>

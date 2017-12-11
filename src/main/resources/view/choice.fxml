@@ -8,9 +8,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoiceController">
    <children>
-      <JFXButton onAction="#serviceEntry" ripplerFill="BLACK" style="-fx-background-color: #e3e3e3;" text="Service">
+      <JFXButton onAction="#serviceEntry" ripplerFill="BLACK" style="-fx-background-color: #e3e3e3;" text="Service" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
@@ -21,18 +22,17 @@
          </GridPane.margin>
       </JFXButton>
       <JFXButton onAction="#editUsers" style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="6" />
+
+      <JFXComboBox fx:id="userComboBox" GridPane.columnIndex="2" GridPane.rowIndex="8">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Label> Log out </Label>
+            </FXCollections>
+         </items>
+         <GridPane.margin>
+            <Insets top="50.0" />
+         </GridPane.margin>
+      </JFXComboBox>
    </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
 
 </GridPane>

@@ -8,7 +8,7 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OperatorController  {
+public class OperatorController implements FxmlController {
 
     public JFXTextField addressField;
     public JFXTextField zipField;
@@ -79,5 +79,10 @@ public class OperatorController  {
         props[5] = zipField.getText();
         props[6] = "0";
         db.createNewMember(props);
+    }
+
+    @Override
+    public void updateUser() {
+
     }
 }

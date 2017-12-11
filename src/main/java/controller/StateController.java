@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.User;
 
+import javax.xml.ws.Service;
+
 /**
  * Created by Jacob on 11/17/17.
  *
@@ -22,6 +24,7 @@ public class StateController {
     private Parent login, service, operator, choice;
     private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene;
     private Stage primaryStage;
+    FxmlController lc, sec, cc, oc;
     
 
     protected StateController() {
@@ -43,11 +46,21 @@ public class StateController {
         this.primaryStage = primaryStage;
 
         try {
+            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("../view/login.fxml"));
+            login = loginLoader.load();
+            lc = loginLoader.getController();
 
-            login = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
-            service = FXMLLoader.load(getClass().getResource("../view/service_entry.fxml"));
-            choice = FXMLLoader.load(getClass().getResource("../view/choice.fxml"));
-            operator = FXMLLoader.load(getClass().getResource("../view/operator.fxml"));
+            FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("../view/service_entry.fxml"));
+            service = serviceLoader.load();
+            sec = serviceLoader.getController();
+
+            FXMLLoader choiceLoader = new FXMLLoader(getClass().getResource("../view/choice.fxml"));
+            choice = choiceLoader.load();
+            cc = choiceLoader.getController();
+
+            FXMLLoader opLoader = new FXMLLoader(getClass().getResource("../view/operator.fxml"));
+            operator = opLoader.load();
+            oc = opLoader.getController();
 
             loginScene = new Scene(login, 600, 700);
             serviceScene = new Scene(service, 600, 700);
@@ -74,12 +87,16 @@ public class StateController {
 
     public void setView(View v) {
 
-        if(v == View.LOGIN)
+        if(v == View.LOGIN) {
             currentScene = loginScene;
+        }
         else if(v == View.SERVICE_ENTRY)
             currentScene = serviceScene;
-        else if(v == View.CHOICE)
+        else if(v == View.CHOICE) {
             currentScene = choiceScene;
+            System.out.println(cc);
+            cc.updateUser();
+        }
         else if(v == View.OPERATOR)
             currentScene = operatorScene;
 
