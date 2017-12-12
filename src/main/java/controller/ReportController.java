@@ -12,6 +12,19 @@ public class ReportController implements FxmlController {
     public JFXButton providerRptBtn;
     private FileHandler fh;
 
+
+
+    private enum ReportType { MEMBER, PROVIDER, MANAGER }
+
+    public ReportController() {
+        fh = new FileHandler();
+    }
+
+    @Override
+    public void viewLoad() {
+
+    }
+
     public void actionProviderReport(ActionEvent actionEvent) {
     }
 
@@ -25,13 +38,6 @@ public class ReportController implements FxmlController {
     public void updateUser() {
 
     }
-
-    private enum ReportType { MEMBER, PROVIDER, MANAGER }
-
-    public ReportController() {
-        fh = new FileHandler();
-    }
-
 
     public void createReport(ReportType type, ResultSet rs) throws SQLException {
         switch(type) {

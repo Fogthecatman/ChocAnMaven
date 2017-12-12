@@ -177,7 +177,7 @@ public class DatabaseController {
     /**
      * This method is used so that the record is written to the Service History Table
      */
-    public String getUpdateForServHisTable(String servDate, int proNumber,
+    public String createNewServiceEntry(String servDate, int proNumber,
                                            int memNumber,  int servNumber)
     {
         Date date = new Date();
@@ -210,13 +210,7 @@ public class DatabaseController {
      */
     public String getChocAnServiceValidation(int servNumber)
     {
-        String whereClause = "1 = 1";
-        if(servNumber != 0){
-            whereClause = String.format("serv_id = %d", servNumber);
-        }
-        // Not sure what data we actually need so we should modify this to only
-        // return columns we care about.
-        return String.format("select * from serv_tbl where %s", whereClause);
+        return String.format("select * from serv_tbl where serv_id = %d", servNumber);
     }
 
     public String getChocAnMemberValidation(int memNumber)
@@ -236,7 +230,7 @@ public class DatabaseController {
 
     public String getChocAnOperatorValidation(int oprNumber)
     {
-        return String.format("select * from opr_tbl where oper_id = %d", oprNumber);
+        return String.format("select * from oper_tbl where oper_id = %d", oprNumber);
     }
 
     public  String getLargestMemberID()

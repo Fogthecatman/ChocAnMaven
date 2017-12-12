@@ -34,37 +34,38 @@ public class LoginController implements FxmlController {
         u = User.getInstance();
     }
 
+    @Override
+    public void viewLoad() {
+
+    }
+
     //Validates id user enters in LoginView
     public boolean validate(int id) throws SQLException{
 
-        boolean notEmpty = false;
         ResultSet rs;
+        String role;
 
         int idLength = String.valueOf(id).length();
 
         if(idLength == 9){
             rs = db.executeSql(db.getChocAnProviderValidation(id));
+            role = "provider";
         }
         else if(idLength == 6){
             rs = db.executeSql(db.getChocAnOperatorValidation(id));
+            role = "operator";
         }
         else{
             rs = db.executeSql(db.getChocAnManagerValidation(id));
+            role = "manager";
         }
 
         if(rs.next()){
-            createUser(id, rs.getString(2));
+            createUser(id, rs.getString("name"), role);
             return true;
         }
 
         return false;
-    }
-
-    //Queries DB to get role corresponding with User
-    //Returns string (subject to change) with role, to populate GUI with proper View
-    //@TODO: Populate role_table with values
-    public String getRole(){
-        return u.getPermissionLevel();
     }
 
     //@TODO regex validation for passing values
@@ -89,10 +90,11 @@ public class LoginController implements FxmlController {
 
     }
 
-    private void createUser(int id, String name){
+    private void createUser(int id, String name, String role){
         System.out.println("Creating User");
         u.setName(name);
         u.setID(id);
+        u.setPermissionLevel(role);
     }
 
 
@@ -105,4 +107,6 @@ public class LoginController implements FxmlController {
     public void updateUser() {
         return;
     }
+
+
 }

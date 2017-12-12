@@ -100,6 +100,7 @@ public class StateController {
             currentScene = choiceScene;
             System.out.println(cc);
             cc.updateUser();
+            cc.viewLoad();
         }
         else if(v == View.OPERATOR)
             currentScene = operatorScene;

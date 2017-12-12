@@ -11,19 +11,22 @@
 <?import javafx.collections.FXCollections?>
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoiceController">
    <children>
-      <JFXButton onAction="#serviceEntry" ripplerFill="BLACK" style="-fx-background-color: #e3e3e3;" text="Service" GridPane.rowIndex="4">
+      <JFXButton fx:id="serviceEntryButton" onAction="#serviceEntry" style="-fx-background-color: #e3e3e3;" text="Service" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5" onAction="#printReports" >
+      <JFXButton fx:id="reportsButton" style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5" onAction="#printReports" >
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton onAction="#editUsers" style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="6" />
 
-      <JFXComboBox fx:id="userComboBox" GridPane.columnIndex="2" GridPane.rowIndex="8">
+      <JFXButton fx:id="addUsersButton" onAction="#addUsers" style="-fx-background-color: e3e3e3;" text="Add Users" GridPane.rowIndex="6" />
+      <JFXButton fx:id="editUsersButton" onAction="#editUsers" style="-fx-background-color: e3e3e3;" text="Edit Users" GridPane.rowIndex="7" />
+      <JFXButton fx:id="deleteUsersButton" onAction="#deleteUsers" style="-fx-background-color: e3e3e3;" text="Delete Users" GridPane.rowIndex="8" />
+
+      <JFXComboBox fx:id="userComboBox" GridPane.columnIndex="2" GridPane.rowIndex="10">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <Label> Log out </Label>

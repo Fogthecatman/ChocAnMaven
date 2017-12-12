@@ -25,6 +25,9 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public Label errorLabel;
 
+    private boolean memberIsValid;
+    private boolean serviceIsValid;
+
     @FXML
     public JFXDatePicker dateSelector;
 
@@ -83,6 +86,12 @@ public class ServiceEntryController implements Initializable, FxmlController {
         submitBtn.disableProperty().bind((memberIdField.textProperty().isNotEmpty().and(serviceIdField.textProperty().isNotEmpty()).not()));
     }
 
+    @Override
+    public void viewLoad(){
+
+    }
+
+
     //Gets data from UI's text fields, writes values to database
     //@TODO: Need to implement some way to prevent submission if field have invalid data
     public void submit(ActionEvent actionEvent) {
@@ -112,22 +121,51 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     }
 
-    public void validateID(ActionEvent actionEvent) {
+
+    public void validateID(ActionEvent actionEvent) throws SQLException {
+        //cannot have null field
+        if(memberIdField.getText().equals(""))
+            return;
+
         int memID = Integer.parseInt(memberIdField.getText());
         boolean notEmpty = false;
         ResultSet rs = db.executeSql(db.getChocAnMemberValidation(memID));
 
-        try{
-            notEmpty = rs.next();
-        }
-        catch (SQLException ex){
-            ex.printStackTrace();
-        }
+        notEmpty = rs.next();
 
-        //@TODO: Need to figure out what to do when it's validated
+        if(notEmpty){
+            memberIdField.setUnFocusColor(Color.GREEN);
+            validateIdBtn.setStyle("-fx-background-color: #00aa00;");
+            memberIsValid = true;
+        }
+        else{
+            memberIdField.setUnFocusColor(Color.RED);
+            validateIdBtn.setStyle("-fx-background-color: #ff0000;");
+            memberIsValid = false;
+        }
     }
 
-    public void validateService(ActionEvent actionEvent) {
+    public void validateService(ActionEvent actionEvent) throws SQLException {
+        //cannot have null field
+        if(serviceIdField.getText().equals(""))
+            return;
+
+        int servCode = Integer.parseInt(serviceIdField.getText());
+        boolean notEmpty;
+        ResultSet rs = db.executeSql(db.getChocAnServiceValidation(servCode));
+
+        notEmpty = rs.next();
+
+        if(rs.next()){
+            serviceIdField.setUnFocusColor(Color.GREEN);
+            validateServiceBtn.setStyle("-fx-background-color: #00aa00;");
+            serviceIsValid = true;
+        }
+        else{
+            serviceIdField.setUnFocusColor(Color.RED);
+            validateServiceBtn.setStyle("-fx-background-color: #ff0000;");
+            serviceIsValid = false;
+        }
     }
 
     //Here is where we validate service codes, we can make a call do DB here

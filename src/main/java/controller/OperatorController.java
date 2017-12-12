@@ -28,6 +28,11 @@ public class OperatorController implements FxmlController {
         db = DatabaseController.getInstance();
     }
 
+    @Override
+    public void viewLoad() {
+
+    }
+
     public void validateID(ActionEvent actionEvent) {
         //why not just pass in what this equals to into the actual function
         int memberID = Integer.parseInt(idField.getText());
@@ -59,4 +64,6 @@ public class OperatorController implements FxmlController {
     public void updateUser() {
 
     }
+
+
 }

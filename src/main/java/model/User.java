@@ -17,17 +17,6 @@ public class User {
         name = "";
     }
 
-    public User(String permissionLevel) {
-        this.permissionLevel = permissionLevel;
-        userID = 0;
-        name = "";
-    }
-
-    public User(String permissionLevel, int userID) {
-        this.permissionLevel = permissionLevel;
-        this.userID = userID;
-        name = "";
-    }
 
     public static User getInstance() {
         if(u == null) {
@@ -47,6 +36,8 @@ public class User {
     public void setID(int id) {
         this.userID = id;
     }
+
+    public void setPermissionLevel(String permissionLevel) { this.permissionLevel = permissionLevel; }
 
     public String getPermissionLevel() {
         return permissionLevel;
