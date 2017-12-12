@@ -232,24 +232,78 @@ public class DatabaseController {
         return String.format("select * from prov_tbl where prov_id = %d", proNumber);
     }
 
-    public  String getLargestMemberID(){
-        return String.format("select MAX(mem_id) FROM mem_tbl");
+    public String getChocAnManagerValidation(int manNumber)
+    {
+        return String.format("select * from man_tbl where prov_id = %d", manNumber);
+    }
+
+    public String getChocAnOperatorValidation(int oprNumber)
+    {
+        return String.format("select * from opr_tbl where prov_id = %d", oprNumber);
+    }
+
+    public  String getLargestMemberID()
+    {
+        return String.format("select MAX(mem_id) mem_id FROM mem_tbl");
+    }
+
+    //String array coming in is all properties to create a new user
+    public void createNewMember(String name, String address, String city,
+                                String state, int zip)
+    {
+        String query;
+        ResultSet rs = executeSql(getLargestMemberID());
+        int maxId = 0;
+        if(rs.next())
+        {
+            maxId = rs.getInt("mem_id");
+            maxId++;
+        }
+        else
+        {
+            return;
+        }
+        query = String.format("insert into mem_tbl " +
+                        "Values " +
+                        "(%d, '%s', '%s', '%s', '%s', %d, 0)",
+                        maxId, name, address, city, state, zip);
+        executeUpdateQuery(query);
+    }
+
+    public void deleteMember(int memId)
+    {
+          String query = String.format("delete from mem_tbl where mem_id = %d", memId);
+          executeUpdateQuery(query);
+    }
+
+    public void updateMember(String name, String address, String city,
+                                String state, int zip)
+    {
+        String query;
+        ResultSet rs = executeSql(getLargestMemberID());
+        int maxId = 0;
+        if(rs.next())
+        {
+            maxId = rs.getInt("mem_id");
+            maxId++;
+        }
+        else
+        {
+            return;
+        }
+
+        //Maybe need the form to pass in what was changed.
+        query = String.format("update mem_tbl " +
+                      "set mem_name = '%s'"
+                        "Values " +
+                        "(%d, %s, %s, %s, %s, %d, 0)",
+                        maxId, name, address, city, state, zip);
+        executeUpdateQuery(query);
     }
 
     //String array coming in is all properties to create a new user
     public void createNewMember(String[] props) {
         String query = "insert into mem_tbl values (";
-
-        for(int i = 0; i < props.length; i++) {
-            query += props[i];
-
-            if(i < props.length - 1) {
-                query += ", ";
-            }
-        }
-
-        query += ")";
-        System.out.println(query);
 
         executeUpdateQuery(query);
     }

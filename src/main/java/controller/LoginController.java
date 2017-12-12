@@ -50,6 +50,7 @@ public class LoginController implements FxmlController {
             }*/
 
             //Get data for createUser() from returned Result Set
+            //this is not how you get things from result sets.
             name = rs.getString(2);
 
         }
