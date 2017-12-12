@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportController">
+   <children>
+   
+       <JFXButton fx:id="memberRptBtn" onAction="#actionMemberReport" style="-fx-background-color: e3e3e3;" text="Member Report" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+       </JFXButton>
+   
+       <JFXButton fx:id="providerRptBtn" onAction="#actionProviderReport" style="-fx-background-color: e3e3e3;" text="Provider Report" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+       </JFXButton>
+   
+       <JFXButton fx:id="managerRptBtn" onAction="#actionManagerReport" style="-fx-background-color: e3e3e3;" text="Manager Report" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+       </JFXButton>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

@@ -28,6 +28,7 @@ public class ChoiceController implements FxmlController {
     }
 
     public void printReports(ActionEvent actionEvent) {
+        sc.setView(View.REPORTS);
     }
 
     public void editUsers(ActionEvent actionEvent) {

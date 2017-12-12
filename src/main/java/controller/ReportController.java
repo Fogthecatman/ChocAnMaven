@@ -1,13 +1,30 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
 import util.FileHandler;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ReportController {
+public class ReportController implements FxmlController {
 
+    public JFXButton providerRptBtn;
     private FileHandler fh;
+
+    public void actionProviderReport(ActionEvent actionEvent) {
+    }
+
+    public void actionMemberReport(ActionEvent actionEvent) {
+    }
+
+    public void actionManagerReport(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void updateUser() {
+
+    }
 
     private enum ReportType { MEMBER, PROVIDER, MANAGER }
 

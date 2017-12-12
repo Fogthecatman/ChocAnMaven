@@ -16,7 +16,7 @@
             <Insets bottom="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5">
+      <JFXButton style="-fx-background-color: e3e3e3;" text="Reports" GridPane.rowIndex="5" onAction="#printReports" >
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>

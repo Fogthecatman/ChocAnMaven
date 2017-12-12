@@ -15,16 +15,16 @@ import javax.xml.ws.Service;
  *
  */
 
-enum View { LOGIN, SERVICE_ENTRY, OPERATOR, CHOICE }
+enum View { LOGIN, SERVICE_ENTRY, OPERATOR, CHOICE, REPORTS }
 
 public class StateController {
 
     private static StateController sc;
 
-    private Parent login, service, operator, choice;
-    private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene;
+    private Parent login, service, operator, choice, report;
+    private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene, reportScene;
     private Stage primaryStage;
-    FxmlController lc, sec, cc, oc;
+    FxmlController lc, sec, cc, oc, rc;
     
 
     protected StateController() {
@@ -62,11 +62,15 @@ public class StateController {
             operator = opLoader.load();
             oc = opLoader.getController();
 
+            FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("../view/reports.fxml"));
+            report = reportLoader.load();
+            rc = reportLoader.getController();
+
             loginScene = new Scene(login, 600, 700);
             serviceScene = new Scene(service, 600, 700);
             choiceScene = new Scene(choice, 600, 700);
             operatorScene = new Scene(operator, 600, 700);
-
+            reportScene = new Scene(report, 600, 700);
 
             currentScene = loginScene;
 
@@ -99,6 +103,8 @@ public class StateController {
         }
         else if(v == View.OPERATOR)
             currentScene = operatorScene;
+        else if(v == View.REPORTS)
+            currentScene = reportScene;
 
         //Set stylesheet for current
         //currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
