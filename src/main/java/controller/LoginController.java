@@ -12,6 +12,7 @@ import util.Regex;
 import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by Jacob on 11/6/17.
@@ -34,35 +35,29 @@ public class LoginController implements FxmlController {
     }
 
     //Validates id user enters in LoginView
-    public boolean validate(int id){
+    public boolean validate(int id) throws SQLException{
 
         boolean notEmpty = false;
-        ResultSet rs = db.executeSql(db.getChocAnProviderValidation(id));
+        ResultSet rs;
 
-        String name = "";
+        int idLength = String.valueOf(id).length();
 
-        try{
-            notEmpty = rs.next();
-            /*if(notEmpty){
-                rs.first();
-                createUser(id);
-
-            }*/
-
-            //Get data for createUser() from returned Result Set
-            //this is not how you get things from result sets.
-            name = rs.getString(2);
-
+        if(idLength == 9){
+            rs = db.executeSql(db.getChocAnProviderValidation(id));
         }
-        catch(Exception e){
-            e.printStackTrace();
+        else if(idLength == 6){
+            rs = db.executeSql(db.getChocAnOperatorValidation(id));
+        }
+        else{
+            rs = db.executeSql(db.getChocAnManagerValidation(id));
         }
 
+        if(rs.next()){
+            createUser(id, rs.getString(2));
+            return true;
+        }
 
-        createUser(id, name);
-
-
-        return notEmpty;
+        return false;
     }
 
     //Queries DB to get role corresponding with User
@@ -73,11 +68,11 @@ public class LoginController implements FxmlController {
     }
 
     //@TODO regex validation for passing values
-    public void submit(ActionEvent actionEvent) throws IOException {
+    public void submit(ActionEvent actionEvent) throws Exception {
 
         System.out.println(userField.getText() + " length:" + userField.getText().length());
 
-        if(!Regex.characterLength(userField.getText(), 4)){
+        if(!Regex.characterLength(userField.getText(), 9)){
             showError("Invalid ID length.");
             return;
         }
@@ -88,6 +83,7 @@ public class LoginController implements FxmlController {
             showError("Invalid Provider number.");
         }
         else{
+            //@TODO: Need to make this actually display the correct view now
             sc.setView(View.CHOICE);
         }
 

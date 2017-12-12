@@ -52,7 +52,7 @@ public class OperatorController implements FxmlController {
 
     public void createNewUser() {
         db.createNewMember(nameField.getText(), addressField.getText(), 
-                            cityField.getText(), stateField.getText(), zipField.getText());
+                            cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
     }
 
     @Override
