@@ -29,6 +29,7 @@ public class OperatorController implements FxmlController {
     }
 
     public void validateID(ActionEvent actionEvent) {
+        //why not just pass in what this equals to into the actual function
         int memberID = Integer.parseInt(idField.getText());
         ResultSet rs = db.executeSql(db.getChocAnMemberValidation(memberID));
 
@@ -50,35 +51,8 @@ public class OperatorController implements FxmlController {
     }
 
     public void createNewUser() {
-        String[] props = new String[7];
-        ResultSet rs = db.executeSql(db.getLargestMemberID());
-        int maxID = 0;
-        try{
-            if(rs.next()) {
-                maxID = rs.getInt(1);
-            }
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-
-        if(maxID == 0){
-            //@TODO: Validation for id
-            // Not 0
-            //Also not more than 4 digits
-        }
-        else
-            maxID ++;
-
-
-        props[0] = "" + maxID; //@Todo create way to make the mem_id next id from list
-        props[1] = "'" + nameField.getText()+"'";
-        props[2] = "'" + addressField.getText()+"'";
-        props[3] = "'" + cityField.getText()+"'";
-        props[4] = "'" + stateField.getText()+"'";
-        props[5] = zipField.getText();
-        props[6] = "0";
-        db.createNewMember(props);
+        db.createNewMember(nameField.getText(), addressField.getText(), 
+                            cityField.getText(), stateField.getText(), zipField.getText());
     }
 
     @Override

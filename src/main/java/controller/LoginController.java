@@ -37,31 +37,29 @@ public class LoginController implements FxmlController {
     public boolean validate(int id){
 
         boolean notEmpty = false;
-        ResultSet rs;
+        ResultSet rs = db.executeSql(db.getChocAnProviderValidation(id));
 
-        int idLength = String.valueOf(id).length();
-
-        if(idLength == 9){
-            rs = db.executeSql(db.getChocAnProviderValidation(id));
-        }
-        else if(idLength == 6){
-            rs = db.executeSql(db.getChocAnOperatorValidation(id));
-        }
-        else{
-            rs = db.executeSql(db.getChocAnManagerValidation(id));
-        }
-
+        String name = "";
 
         try{
             notEmpty = rs.next();
+            /*if(notEmpty){
+                rs.first();
+                createUser(id);
 
-            if(notEmpty){
-                createUser(id, rs.getString(2));
-            }
+            }*/
+
+            //Get data for createUser() from returned Result Set
+            //this is not how you get things from result sets.
+            name = rs.getString(2);
+
         }
         catch(Exception e){
             e.printStackTrace();
         }
+
+
+        createUser(id, name);
 
 
         return notEmpty;
@@ -79,7 +77,7 @@ public class LoginController implements FxmlController {
 
         System.out.println(userField.getText() + " length:" + userField.getText().length());
 
-        if(!Regex.characterLength(userField.getText(), 9)){
+        if(!Regex.characterLength(userField.getText(), 4)){
             showError("Invalid ID length.");
             return;
         }
@@ -90,7 +88,6 @@ public class LoginController implements FxmlController {
             showError("Invalid Provider number.");
         }
         else{
-            //@TODO: Need to make this actually display the correct view now
             sc.setView(View.CHOICE);
         }
 

@@ -6,6 +6,18 @@ CREATE TABLE serv_tbl (
 	PRIMARY KEY(serv_id)
 );
 
+CREATE TABLE man_tbl (
+    man_id			int			Not Null,
+    man_name	VARCHAR(25)	Not Null,
+	PRIMARY KEY(man_id)
+);
+
+CREATE TABLE opr_tbl (
+    opr_id			int			Not Null,
+    opr_name	VARCHAR(25)	Not Null,
+	PRIMARY KEY(opr_id)
+);
+
 CREATE TABLE mem_tbl (
     mem_id			int			Not Null,
     mem_name	VARCHAR(25)	Not Null,
@@ -25,12 +37,6 @@ CREATE TABLE prov_tbl (
 	prov_state	VARCHAR(2)		Not Null,
 	prov_zip	int				Not Null,
 	PRIMARY KEY(prov_id)
-);
-
-CREATE TABLE role_tbl (
-    id		int				Not Null,
-    role	VARCHAR(30)		Not Null,
-	PRIMARY KEY(id)
 );
 
 CREATE TABLE serv_his_tbl (
