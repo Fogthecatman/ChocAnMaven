@@ -177,19 +177,26 @@ public class DatabaseController {
     /**
      * This method is used so that the record is written to the Service History Table
      */
-    public String createNewServiceEntry(String servDate, int proNumber,
-                                           int memNumber,  int servNumber)
+    public String createNewServiceEntry(String servDate, int provID, int memID,  int servID) throws SQLException
     {
+        //@TODO: Needs fixing
         Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        System.out.println(ts.toString());
         // This is needed cause you can't do a select inside a insert into statement
-        String servFeeQuery =  getServFee(servNumber);
+        String servFeeQuery =  getServFee(servID);
         /* execute the query and then save the resultset of serv fee to a double */
         Double servFee = 0.0;
+        ResultSet rs = executeSql(servFeeQuery);
+
+        if(rs.next())
+            servFee = rs.getDouble("serv_fee");
+
         return String.format("insert into serv_his_tbl " +
                         "Values " +
-                        "(%s, %s, %d, %d, %d, %d)",
-                date.toString(), servDate, proNumber,
-                memNumber, servNumber, servFee);
+                        "(%d, %d, %d, %s, CURRENT_TIMESTAMP, %f)",
+                    provID, memID, servID, servDate,
+                    servFee);
     }
 
     public String getServFee(int servNumber)

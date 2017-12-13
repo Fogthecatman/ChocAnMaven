@@ -10,18 +10,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import model.User;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ServiceEntryController implements Initializable, FxmlController {
 
     private StateController sc;
     private DatabaseController db;
+    private User u;
 
     public Label errorLabel;
 
@@ -45,6 +49,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
     public ServiceEntryController() {
         sc = StateController.getInstance();
         db = DatabaseController.getInstance();
+        u = User.getInstance();
     }
 
     @Override
@@ -94,15 +99,18 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     //Gets data from UI's text fields, writes values to database
     //@TODO: Need to implement some way to prevent submission if field have invalid data
-    public void submit(ActionEvent actionEvent) {
+    public void submit(ActionEvent actionEvent) throws Exception {
 
-       //int serviceID = Integer.parseInt(serviceIdField.getText());
-       //String comment = commentArea.getText();
-      // int memberID = Integer.parseInt(memberIdField.getText());
-       //String date = dateServiceField.getText();
-
+       int serviceID = Integer.parseInt(serviceIdField.getText());
+       String comment = commentArea.getText();
+       int memberID = Integer.parseInt(memberIdField.getText());
+       String servDate = dateSelector.getValue().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+        System.out.println(servDate);
 
        //Write values to database
+        String servEntryQuery = db.createNewServiceEntry(servDate, u.getUserID(), memberID, serviceID);
+        db.executeUpdateQuery(servEntryQuery);
+
         //Display "Submission successful on GUI when completed
         showError("Written to Database!");
     }
@@ -137,6 +145,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
             memberIdField.setUnFocusColor(Color.GREEN);
             validateIdBtn.setStyle("-fx-background-color: #00aa00;");
             memberIsValid = true;
+            //submitBtnValidation();
         }
         else{
             memberIdField.setUnFocusColor(Color.RED);
@@ -151,15 +160,13 @@ public class ServiceEntryController implements Initializable, FxmlController {
             return;
 
         int servCode = Integer.parseInt(serviceIdField.getText());
-        boolean notEmpty;
         ResultSet rs = db.executeSql(db.getChocAnServiceValidation(servCode));
-
-        notEmpty = rs.next();
 
         if(rs.next()){
             serviceIdField.setUnFocusColor(Color.GREEN);
             validateServiceBtn.setStyle("-fx-background-color: #00aa00;");
             serviceIsValid = true;
+            //submitBtnValidation();
         }
         else{
             serviceIdField.setUnFocusColor(Color.RED);
@@ -174,4 +181,10 @@ public class ServiceEntryController implements Initializable, FxmlController {
         System.out.println(id + " validating " + valid);
         return valid;
     }
+
+    /*private void submitBtnValidation(){
+        if(memberIsValid && serviceIsValid)
+            submitBtn.setDisable(false);
+    }*/
+
 }
