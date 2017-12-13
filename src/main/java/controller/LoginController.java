@@ -85,6 +85,7 @@ public class LoginController implements FxmlController {
         }
         else{
             //@TODO: Need to make this actually display the correct view now
+            userField.setText(""); //Clearing text for if user logs out.
             sc.setView(View.CHOICE);
         }
 

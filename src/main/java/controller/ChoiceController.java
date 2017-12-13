@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.GridPane;
 import model.User;
 
 import java.awt.*;
@@ -20,6 +21,7 @@ public class ChoiceController implements FxmlController {
     public JFXButton serviceEntryButton;
     public JFXButton addUsersButton;
     public JFXButton deleteUsersButton;
+    public JFXButton editUsersButton;
     private StateController sc;
     private User u;
 
@@ -34,9 +36,27 @@ public class ChoiceController implements FxmlController {
         //@TODO: Fix this to make it shows correct buttons
         String permLvl = u.getPermissionLevel();
 
+        hideButtons();
+
         if(permLvl.equals("provider")){
-            reportsButton.setVisible(false);
+            serviceEntryButton.setVisible(true);
         }
+        if(permLvl.equals("operator")){
+            addUsersButton.setVisible(true);
+            editUsersButton.setVisible(true);
+            deleteUsersButton.setVisible(true);
+        }
+        if(permLvl.equals("manager")){
+            reportsButton.setVisible(true);
+        }
+    }
+
+    private void hideButtons() {
+        reportsButton.setVisible(false);
+        serviceEntryButton.setVisible(false);
+        addUsersButton.setVisible(false);
+        editUsersButton.setVisible(false);
+        deleteUsersButton.setVisible(false);
     }
 
     public void serviceEntry(ActionEvent actionEvent) {
@@ -61,5 +81,10 @@ public class ChoiceController implements FxmlController {
     }
 
     public void deleteUsers(ActionEvent actionEvent) {
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        //@TODO: reset user data to null
+        sc.setView(View.LOGIN);
     }
 }

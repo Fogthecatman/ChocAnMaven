@@ -65,5 +65,10 @@ public class OperatorController implements FxmlController {
 
     }
 
-
+    //Submitting form
+    public void submit(ActionEvent actionEvent) {
+    }
+    //Canceling form
+    public void cancel(ActionEvent actionEvent) {
+    }
 }
