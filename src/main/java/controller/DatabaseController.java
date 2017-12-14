@@ -278,14 +278,14 @@ public class DatabaseController {
     }
 
     public void updateMember(int memNum, String name, String address, String city,
-                                String state, int zip, )
+                                String state, int zip, int errFlg )
     {
         String query;
         //Maybe need the form to pass in what was changed.
         query = String.format("update mem_tbl " +
-                      "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', " +
+                      "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', acc_err_flg = %d" +
                         "where mem_id = %d ",
-                        maxId, name, address, city, state, zip, memNum);
+                        maxId, name, address, city, state, zip, errflg, memNum);
         executeUpdateQuery(query);
     }
 
