@@ -1,0 +1,21 @@
+Sodales Nisi
+100000003
+407-3122 Auctor Rd.
+Little Rock
+AR
+32136
+Services provided:
+	03/18/1995
+	2017-12-14
+	Helen Harper
+	217089
+	$68
+
+	03/18/1995
+	2017-12-14
+	Helen Harper
+	966954
+	$96
+
+Total number of consultations: 9
+Total fee for the week: $589

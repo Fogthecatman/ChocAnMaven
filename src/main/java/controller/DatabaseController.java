@@ -61,7 +61,7 @@ public class DatabaseController {
         try
         {
             // create the java statement
-            Statement st = conn.createStatement();
+            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             // execute the query, and get a java resultset
             ResultSet res = st.executeQuery(query);
@@ -98,7 +98,7 @@ public class DatabaseController {
      * consultations and overall fee would be a variable += res.get(column) which
      * would just keep a total count while looping through the result set.
      */
-    public String getManagersWeeklyReport(int proNumber) {
+    public String getManagersWeeklyReport() {
         return String.format("select prov.prov_id, \n " +
                 " prov.prov_name, \n " +
                 " COUNT(servhs.mem_id) Consultations, \n " +
@@ -106,9 +106,7 @@ public class DatabaseController {
                 " from prov_tbl prov \n " +
                 " join serv_his_tbl servhs \n " +
                 "   on servhs.prov_id = prov.prov_id \n " +
-                " where prov.prov_id = %d \n " +
-                " group by prov.prov_id, " +
-                "  prov.prov_name", proNumber);
+                " group by prov.prov_name, prov.prov_id");
     }
 
     /**
@@ -156,7 +154,7 @@ public class DatabaseController {
      * the member info off of the first record and then iterate over the result
      * set just grabbing the serv_dte, provider name and the service name.
      */
-    public String getMemberWeeklyReport(int memNumber) {
+    public String getMemberWeeklyReport() {
         return String.format("select mem.*, \n " +
                 "       servhs.serv_dte, \n " +
                 "       prov.prov_name, \n " +
@@ -167,8 +165,7 @@ public class DatabaseController {
                 "join prov_tbl prov \n " +
                 "  on prov.prov_id = servhs.prov_id \n " +
                 "join serv_tbl serv \n " +
-                "  on serv.serv_id = servhs.serv_id \n " +
-                "where mem.mem_id = %d", memNumber);
+                "  on serv.serv_id = servhs.serv_id \n ");
     }
 
 
@@ -222,17 +219,17 @@ public class DatabaseController {
 
     public String getChocAnProviderValidation(int proNumber)
     {
-        return String.format("select * from prov_tbl where prov_id = %d", proNumber);
+        return String.format("select prov_name name from prov_tbl where prov_id = %d", proNumber);
     }
 
     public String getChocAnManagerValidation(int manNumber)
     {
-        return String.format("select * from manager_tbl where man_id = %d", manNumber);
+        return String.format("select man_name name from manager_tbl where man_id = %d", manNumber);
     }
 
     public String getChocAnOperatorValidation(int oprNumber)
     {
-        return String.format("select * from oper_tbl where oper_id = %d", oprNumber);
+        return String.format("select oper_name name from oper_tbl where oper_id = %d", oprNumber);
     }
 
     public  String getLargestID(String table)

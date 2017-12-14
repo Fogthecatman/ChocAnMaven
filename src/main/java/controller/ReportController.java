@@ -4,13 +4,18 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import util.FileHandler;
 
+import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class ReportController implements FxmlController {
 
     public JFXButton providerRptBtn;
     private FileHandler fh;
+    private DatabaseController db;
 
 
 
@@ -18,6 +23,7 @@ public class ReportController implements FxmlController {
 
     public ReportController() {
         fh = new FileHandler();
+        db = DatabaseController.getInstance();
     }
 
     @Override
@@ -25,13 +31,23 @@ public class ReportController implements FxmlController {
 
     }
 
-    public void actionProviderReport(ActionEvent actionEvent) {
+    public void actionProviderReport(ActionEvent actionEvent) throws SQLException {
+        ResultSet rs = db.executeSql(db.getProviderWeeklyReport());
+
+        createProviderReport(rs);
+
     }
 
-    public void actionMemberReport(ActionEvent actionEvent) {
+    public void actionMemberReport(ActionEvent actionEvent) throws SQLException {
+        ResultSet rs = db.executeSql(db.getMemberWeeklyReport());
+
+        createMemberReport(rs);
     }
 
-    public void actionManagerReport(ActionEvent actionEvent) {
+    public void actionManagerReport(ActionEvent actionEvent) throws SQLException {
+        ResultSet rs = db.executeSql(db.getManagersWeeklyReport());
+
+        createManagerReport(rs);
     }
 
     @Override
@@ -56,35 +72,43 @@ public class ReportController implements FxmlController {
 
     private void createMemberReport(ResultSet rs) throws SQLException {
         //@TODO write to file
-        if(!rs.next()){
+        if(rs.isLast()){
           System.out.println("No report to generate.");
           return;
         }
 
+        String folderpath = fh.createWeeklyFolder("reports/members/");
+
         while(rs.next()) {
-          String memName = rs.getString("mem.mem_name");
-          int memId = rs.getInt("mem.mem_id");
-          String memberReport = rs.getString("mem.mem_name");
-          memberReport += String.format("\n%d", rs.getInt("mem.mem_id"));
-          memberReport += String.format("\n%s", rs.getString("mem.mem_addr"));
-          memberReport += String.format("\n%s", rs.getString("mem.mem_city"));
-          memberReport += String.format("\n%s", rs.getString("mem.mem_state"));
-          memberReport += String.format("\n%s", rs.getInt("mem.mem_zip"));
+          String memName = rs.getString("mem_name");
+          int memId = rs.getInt("mem_id");
+          String memberReport = rs.getString("mem_name");
+          memberReport += String.format("\n%d", rs.getInt("mem_id"));
+          memberReport += String.format("\n%s", rs.getString("mem_addr"));
+          memberReport += String.format("\n%s", rs.getString("mem_city"));
+          memberReport += String.format("\n%s", rs.getString("mem_state"));
+          memberReport += String.format("\n%s", rs.getInt("mem_zip"));
           memberReport += "\nServices received:";
           do{
-            memberReport += String.format("\n\t%s", rs.getDate("servhs.serv_dte"));
-            memberReport += String.format("\n\t%s", rs.getString("prov.prov_name"));
-            memberReport += String.format("\n%s", rs.getString("serv.serv_name"));
-          }while(rs.next() && memName.equals(rs.getString("mem.mem_name")));
-          fh.writeMemberReport(memberReport, memName, memId);
+            memberReport += String.format("\n\t%s", rs.getString("serv_dte"));
+            memberReport += String.format("\n\t%s", rs.getString("prov_name"));
+            memberReport += String.format("\n\t%s\n", rs.getString("serv_name"));
+          }while(rs.next() && memName.equals(rs.getString("mem_name")));
+          rs.previous();
+          fh.writeMemberReport(memberReport, folderpath, memName, memId);
         }
+
+        System.out.println("done");
     }
 
     private void createManagerReport(ResultSet rs) throws SQLException {
         //@TODO format ResultSet to ManagerReport, then write to file
         String managerReport = "";
 
-        if(!rs.next()){
+        //Creating weekly folder
+        String folderpath = fh.createWeeklyFolder("reports/managers/");
+
+        if(rs.isLast()){
           System.out.println("No report to generate.");
           return;
         }
@@ -92,51 +116,59 @@ public class ReportController implements FxmlController {
             numOfConsul = 0,
             overallFeeTot = 0;
         while(rs.next()){
-          managerReport = String.format("%d", rs.getInt("prov.prov_id"));
-          managerReport += String.format("\n%s", rs.getString("prov.prov_name"));
+          managerReport += String.format("%d", rs.getInt("prov_id"));
+          managerReport += String.format("\n%s", rs.getString("prov_name"));
           managerReport += String.format("\n%s", rs.getInt("Consultations"));
-          managerReport += String.format("\n%s", rs.getInt("TotalServFee"));
+          managerReport += String.format("\n$%s\n\n", rs.getInt("TotalServFee"));
           numOfProv++;
           numOfConsul += rs.getInt("Consultations");
           overallFeeTot += rs.getInt("TotalServFee");
         }
         managerReport += String.format("\nTotal number of providers: %d", numOfProv);
         managerReport += String.format("\nTotal number of consultations: %d", numOfConsul);
-        managerReport += String.format("\nTotal service fee: %d", overallFeeTot);
-        fh.writeManagerReport(managerReport);
+        managerReport += String.format("\nTotal service fee: $%d", overallFeeTot);
+        fh.writeManagerReport(managerReport, folderpath);
+
     }
 
     private void createProviderReport(ResultSet rs) throws SQLException {
         //TODO format ResultSet to ProviderReport, then write to file
+
+        String folderpath = fh.createWeeklyFolder("reports/providers/");
+
         if(rs.isLast()){
           System.out.println("No report to generate.");
           return;
         }
+        //rs.previous();
+
         int totalFee = 0, totalConsultations = 0;
         while(rs.next()) {
-          String proName = rs.getString("prov.prov_name");
-          int proId = rs.getInt("prov.prov_id");
-          String providerReport = rs.getString("prov.prov_name");
-          providerReport += String.format("\n%d", rs.getInt("prov.prov_id"));
-          providerReport += String.format("\n%s", rs.getString("prov.prov_addr"));
-          providerReport += String.format("\n%s", rs.getString("prov.prov_city"));
-          providerReport += String.format("\n%s", rs.getString("prov.prov_state"));
-          providerReport += String.format("\n%s", rs.getInt("prov.prov_zip"));
+          String proName = rs.getString("prov_name");
+          int proId = rs.getInt("prov_id");
+          String providerReport = rs.getString("prov_name");
+          providerReport += String.format("\n%d", rs.getInt("prov_id"));
+          providerReport += String.format("\n%s", rs.getString("prov_addr"));
+          providerReport += String.format("\n%s", rs.getString("prov_city"));
+          providerReport += String.format("\n%s", rs.getString("prov_state"));
+          providerReport += String.format("\n%s", rs.getInt("prov_zip"));
           providerReport += "\nServices provided:";
           do{
-            providerReport += String.format("\n\t%s", rs.getDate("servhs.serv_dte"));
-            providerReport += String.format("\n\t%s", rs.getDate("servhs.tim_stmp"));
-            providerReport += String.format("\n\t%s", rs.getString("mem.mem_name"));
-            providerReport += String.format("\n\t%s", rs.getInt("serv.serv_id"));
-            providerReport += String.format("\n\t%d", rs.getInt("servhs.serv_fee"));
-            totalFee += rs.getInt("servhs.serv_fee");
+            providerReport += String.format("\n\t%s", rs.getString("serv_dte"));
+            providerReport += String.format("\n\t%s", rs.getDate("tim_stmp"));
+            providerReport += String.format("\n\t%s", rs.getString("mem_name"));
+            providerReport += String.format("\n\t%s", rs.getInt("serv_id"));
+            providerReport += String.format("\n\t$%d\n", rs.getInt("serv_fee"));
+            totalFee += rs.getInt("serv_fee");
             totalConsultations++;
-          }while(rs.next() && proName.equals(rs.getString("prov.prov_name")));
+          }while(rs.next() && proName.equals(rs.getString("prov_name")));
           rs.previous();
           providerReport += String.format("\nTotal number of consultations: %s", totalConsultations);
-          providerReport += String.format("\nTotal fee for the week: %s", totalFee);
-          fh.writeProviderReport(providerReport, proName, proId);
+          providerReport += String.format("\nTotal fee for the week: $%s", totalFee);
+          fh.writeProviderReport(providerReport, folderpath, proName, proId);
         }
+
+        System.out.println("done");
     }
 
 

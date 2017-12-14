@@ -1,0 +1,27 @@
+Test McTest
+100000000
+1598 Sed Street
+Evansville
+IN
+96652
+Services provided:
+	03/18/1995
+	2017-12-14
+	Eagan Arnett
+	100278
+	$67
+
+	12-13-2017
+	2017-12-14
+	Eagan Arnett
+	883948
+	$100
+
+	03/18/1995
+	2017-12-14
+	Eagan Arnett
+	993628
+	$24
+
+Total number of consultations: 3
+Total fee for the week: $191

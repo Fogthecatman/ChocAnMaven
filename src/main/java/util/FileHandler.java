@@ -7,10 +7,12 @@ import java.time.format.DateTimeFormatter;
 public class FileHandler {
 
     //@TODO: Probably want to pass in List of reports
-    public void writeMemberReport(String report, String memName, int memID){
+    public void writeMemberReport(String report, String path, String memName, int memID){
         LocalDate ld = LocalDate.now();
-        String fileName = memName + "-" + memID + "_" + DateTimeFormatter.ofPattern("MM-dd-yy").format(ld) + ".txt";
-        File file = new File("reports/members/" + fileName);
+        String fileName = memName + "-" + memID + "_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";
+
+        File file = new File(path + fileName);
+
 
         try{
             FileWriter fw = new FileWriter(file);
@@ -25,10 +27,10 @@ public class FileHandler {
 
     }
 
-    public void writeProviderReport(String report, String provName, int provID){
+    public void writeProviderReport(String report, String path, String provName, int provID){
         LocalDate ld = LocalDate.now();
-        String fileName = provName + "-" + provID + "_" + DateTimeFormatter.ofPattern("MM-dd-yy").format(ld) + ".txt";
-        File file = new File("reports/providers/" + fileName);
+        String fileName = provName + "-" + provID + "_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";
+        File file = new File(path + fileName);
 
         try{
             FileWriter fw = new FileWriter(file);
@@ -42,10 +44,10 @@ public class FileHandler {
         }
     }
 
-    public void writeManagerReport(String report){
+    public void writeManagerReport(String report, String path){
         LocalDate ld = LocalDate.now();
-        String fileName = "ManagerReport_" + DateTimeFormatter.ofPattern("MM-dd-yy").format(ld) + ".txt";
-        File file = new File("reports/managers/" + fileName);
+        String fileName = "ManagerReport_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";
+        File file = new File(path + fileName);
 
         try{
             FileWriter fw = new FileWriter(file);
@@ -58,6 +60,19 @@ public class FileHandler {
             System.out.println("File could not be created");
         }
     }
+
+    public String createWeeklyFolder(String path){
+        LocalDate ld = LocalDate.now();
+        String date = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld).toString();
+        File folderPath = new File(path + date );
+
+        if(!folderPath.exists())
+            folderPath.mkdir();
+
+        return folderPath.getPath() + "/";
+    }
+
+
 
 
 
