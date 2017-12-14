@@ -108,7 +108,7 @@ public class ReportController implements FxmlController {
 
     private void createProviderReport(ResultSet rs) throws SQLException {
         //TODO format ResultSet to ProviderReport, then write to file
-        if(!rs.next()){
+        if(rs.isLast()){
           System.out.println("No report to generate.");
           return;
         }
@@ -123,7 +123,7 @@ public class ReportController implements FxmlController {
           providerReport += String.format("\n%s", rs.getString("prov.prov_state"));
           providerReport += String.format("\n%s", rs.getInt("prov.prov_zip"));
           providerReport += "\nServices provided:";
-         do{
+          do{
             providerReport += String.format("\n\t%s", rs.getDate("servhs.serv_dte"));
             providerReport += String.format("\n\t%s", rs.getDate("servhs.tim_stmp"));
             providerReport += String.format("\n\t%s", rs.getString("mem.mem_name"));
@@ -132,6 +132,7 @@ public class ReportController implements FxmlController {
             totalFee += rs.getInt("servhs.serv_fee");
             totalConsultations++;
           }while(rs.next() && proName.equals(rs.getString("prov.prov_name")));
+          rs.previous();
           providerReport += String.format("\nTotal number of consultations: %s", totalConsultations);
           providerReport += String.format("\nTotal fee for the week: %s", totalFee);
           fh.writeProviderReport(providerReport, proName, proId);

@@ -59,6 +59,39 @@ public class ServiceEntryController implements Initializable, FxmlController {
         dateSelector.setValue(LocalDate.now());
         dateSelector.setDefaultColor(Color.rgb(40, 59, 185));
 
+        serviceRf = new RequiredFieldValidator();
+        serviceRf2 = new RequiredFieldValidator();
+
+        //setting submit button off by default
+        submitBtn.setDisable(true);
+
+        //http://useof.org/java-open-source/com.jfoenix.validation.RequiredFieldValidator
+
+        serviceRf.setMessage("Input Required");
+        serviceRf2.setMessage("Must be 4 Characters");
+
+        serviceIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(newValue) {
+                validateServiceBtn.setStyle("-fx-background-color: #e3e3e3;");
+                serviceIdField.setUnFocusColor(Color.BLACK);
+                serviceIsValid = false;
+                disableSubmitBtn();
+            }
+        });
+
+        //memberIdField.getValidators().add(rf2);
+
+        memberIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
+            if(newValue) {
+                validateIdBtn.setStyle("-fx-background-color: #e3e3e3;");
+                memberIdField.setUnFocusColor(Color.BLACK);
+                memberIsValid = false;
+                disableSubmitBtn();
+            }
+        });
+
+        //Submit button is disabled until the mandatory fields are filled
+        //submitBtn.disableProperty().bind((memberIdField.textProperty().isNotEmpty().and(serviceIdField.textProperty().isNotEmpty()).not()));
     }
 
     @Override
@@ -114,7 +147,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
             memberIdField.setUnFocusColor(Color.GREEN);
             validateIdBtn.setStyle("-fx-background-color: #00aa00;");
             memberIsValid = true;
-            //submitBtnValidation();
+            submitBtnValidation();
         }
         else{
             memberIdField.setUnFocusColor(Color.RED);
@@ -135,7 +168,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
             serviceIdField.setUnFocusColor(Color.GREEN);
             validateServiceBtn.setStyle("-fx-background-color: #00aa00;");
             serviceIsValid = true;
-            //submitBtnValidation();
+            submitBtnValidation();
         }
         else{
             serviceIdField.setUnFocusColor(Color.RED);
@@ -151,9 +184,13 @@ public class ServiceEntryController implements Initializable, FxmlController {
         return valid;
     }
 
-    /*private void submitBtnValidation(){
+    private void submitBtnValidation(){
         if(memberIsValid && serviceIsValid)
             submitBtn.setDisable(false);
-    }*/
+    }
+
+    private void disableSubmitBtn(){
+        submitBtn.setDisable(true);
+    }
 
 }

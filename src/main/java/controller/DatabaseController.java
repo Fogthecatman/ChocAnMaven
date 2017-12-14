@@ -190,9 +190,8 @@ public class DatabaseController {
 
         return String.format("insert into serv_his_tbl " +
                         "Values " +
-                        "(%d, %d, %d, '%s', GETDATE(), %f, '%s');",
-                    provID, memID, servID, servDate,
-                    servFee, servCom);
+                        "(%d, %d, %d, %f, '%s', '%s', GETDATE());",
+                    provID, memID, servID, servFee, servCom, servDate);
     }
 
     public String getServFee(int servNumber)
