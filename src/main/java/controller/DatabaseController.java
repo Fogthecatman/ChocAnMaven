@@ -285,7 +285,7 @@ public class DatabaseController {
         query = String.format("update mem_tbl " +
                       "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', acc_err_flg = %d" +
                         "where mem_id = %d ",
-                         name, address, city, state, zip, errflg, memNum);
+                         name, address, city, state, zip, errFlg, memNum);
         executeUpdateQuery(query);
     }
 
