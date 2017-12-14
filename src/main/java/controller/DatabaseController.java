@@ -285,7 +285,7 @@ public class DatabaseController {
         query = String.format("update mem_tbl " +
                       "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', acc_err_flg = %d" +
                         "where mem_id = %d ",
-                        maxId, name, address, city, state, zip, errflg, memNum);
+                         name, address, city, state, zip, errflg, memNum);
         executeUpdateQuery(query);
     }
 
@@ -333,7 +333,7 @@ public class DatabaseController {
         query = String.format("update prov_tbl " +
                       "set prov_name = '%s', prov_addr = '%s', prov_city = '%s', prov_state = '%s', prov_zip = '%s'" +
                         "where prov_id = %d ",
-                        maxId, name, address, city, state, zip, provNum);
+                         name, address, city, state, zip, provNum);
         executeUpdateQuery(query);
     }
 
