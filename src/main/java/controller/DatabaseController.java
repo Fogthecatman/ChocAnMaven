@@ -134,7 +134,7 @@ public class DatabaseController {
      * returned. For total fee would be a simple totalFee += res.get('serv_fee')
      * inside the while loop when looping over the result set.
      */
-    public String getProviderWeeklyReport(int proNumber) {
+    public String getProviderWeeklyReport() {
         return String.format("select prov.*, \n " +
                 "       mem.mem_name, \n " +
                 "       mem.mem_id, \n " +
@@ -146,8 +146,7 @@ public class DatabaseController {
                 "join serv_his_tbl servhs \n " +
                 "  on servhs.prov_id = prov.prov_id \n " +
                 "join mem_tbl mem \n " +
-                "  on mem.mem_id = servhs.mem_id \n " +
-                "where prov.prov_id = %d", proNumber);
+                "  on mem.mem_id = servhs.mem_id \n ");
     }
 
     /**
@@ -219,7 +218,7 @@ public class DatabaseController {
 
     public String getChocAnMemberValidation(int memNumber)
     {
-        return String.format("select * from mem_tbl where mem_id = %d", memNumber);
+        return String.format("select * from mem_tbl where mem_id = %d and acc_err_flg = 0", memNumber);
     }
 
     public String getChocAnProviderValidation(int proNumber)
@@ -237,9 +236,9 @@ public class DatabaseController {
         return String.format("select * from oper_tbl where oper_id = %d", oprNumber);
     }
 
-    public  String getLargestMemberID()
+    public  String getLargestID(String table)
     {
-        return String.format("select MAX(mem_id) mem_id FROM mem_tbl");
+        return String.format("select MAX(%s_id) id FROM %s_tbl", table, table);
     }
 
     //String array coming in is all properties to create a new user
@@ -247,13 +246,13 @@ public class DatabaseController {
                                 String state, int zip)
     {
         String query;
-        ResultSet rs = executeSql(getLargestMemberID());
+        ResultSet rs = executeSql(getLargestID("prov"));
         int maxId = 0;
 
         try{
             if(rs.next())
             {
-                maxId = rs.getInt("mem_id");
+                maxId = rs.getInt("id");
                 maxId++;
             }
             else
@@ -278,29 +277,64 @@ public class DatabaseController {
           executeUpdateQuery(query);
     }
 
-    /*public void updateMember(String name, String address, String city,
+    public void updateMember(int memNum, String name, String address, String city,
+                                String state, int zip, )
+    {
+        String query;
+        //Maybe need the form to pass in what was changed.
+        query = String.format("update mem_tbl " +
+                      "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', " +
+                        "where mem_id = %d ",
+                        maxId, name, address, city, state, zip, memNum);
+        executeUpdateQuery(query);
+    }
+
+    //String array coming in is all properties to create a new user
+    public void createNewProvider(String name, String address, String city,
                                 String state, int zip)
     {
         String query;
-        ResultSet rs = executeSql(getLargestMemberID());
+        ResultSet rs = executeSql(getLargestID("prov"));
         int maxId = 0;
-        if(rs.next())
-        {
-            maxId = rs.getInt("mem_id");
-            maxId++;
+
+        try{
+            if(rs.next())
+            {
+                maxId = rs.getInt("id");
+                maxId++;
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
+        catch (SQLException ex){
+            ex.printStackTrace();
         }
 
-        //Maybe need the form to pass in what was changed.
-        query = String.format("update mem_tbl " +
-                      "set mem_name = '%s'" +
+        query = String.format("insert into prov_tbl " +
                         "Values " +
-                        "(%d, %s, %s, %s, %s, %d, 0)",
+                        "(%d, '%s', '%s', '%s', '%s', %d)",
                         maxId, name, address, city, state, zip);
         executeUpdateQuery(query);
-    }*/
+    }
+
+    public void deleteProvider(int provId)
+    {
+          String query = String.format("delete from prov_tbl where prov_id = %d", provId);
+          executeUpdateQuery(query);
+    }
+
+    public void updateProvider(int provNum, String name, String address, String city,
+                                String state, int zip)
+    {
+        String query;
+        //Maybe need the form to pass in what was changed.
+        query = String.format("update prov_tbl " +
+                      "set prov_name = '%s', prov_addr = '%s', prov_city = '%s', prov_state = '%s', prov_zip = '%s'" +
+                        "where prov_id = %d ",
+                        maxId, name, address, city, state, zip, provNum);
+        executeUpdateQuery(query);
+    }
 
 }
