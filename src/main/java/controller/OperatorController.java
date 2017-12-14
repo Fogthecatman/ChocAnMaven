@@ -1,5 +1,8 @@
 package controller;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
@@ -16,6 +19,9 @@ public class OperatorController implements FxmlController {
     public JFXTextField cityField;
     public JFXTextField nameField;
     public TextField idField;
+    public JFXComboBox userTypeComboBox;
+    public JFXTextArea dataArea;
+    public JFXCheckBox checkAcntSuspension;
 
     /* @TODO    Buttons (except for Service btn) will need to be added dynamically from User Permissions
     */
@@ -64,11 +70,17 @@ public class OperatorController implements FxmlController {
     public void updateUser() {
 
     }
-
-    //Submitting form
-    public void submit(ActionEvent actionEvent) {
-    }
+    
     //Canceling form
     public void cancel(ActionEvent actionEvent) {
+    }
+
+    public void submitNewUser(ActionEvent actionEvent) {
+    }
+
+    public void submitEditUser(ActionEvent actionEvent) {
+    }
+
+    public void submitDeleteUser(ActionEvent actionEvent) {
     }
 }

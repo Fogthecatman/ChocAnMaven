@@ -68,19 +68,22 @@ public class ChoiceController implements FxmlController {
     }
 
     public void editUsers(ActionEvent actionEvent) {
-        sc.setView(View.OPERATOR);
+        sc.setView(View.EDIT_USER);
     }
 
     @Override
     public void updateUser() {
+        System.out.println(u.getName());
         userComboBox.setPromptText(u.getName());
     }
 
 
     public void addUsers(ActionEvent actionEvent) {
+        sc.setView(View.NEW_USER);
     }
 
     public void deleteUsers(ActionEvent actionEvent) {
+        sc.setView(View.DELETE_USER);
     }
 
     public void logOut(ActionEvent actionEvent) {

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OperatorController">
+   <children>
+      <JFXComboBox fx:id="userTypeComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.rowIndex="1">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Label> Member </Label>
+               <Label> Provider </Label>
+            </FXCollections>
+         </items>
+         <GridPane.margin>
+            <Insets bottom="30.0" top="50.0" />
+         </GridPane.margin>
+      </JFXComboBox>
+
+      <JFXTextField fx:id="nameField" labelFloat="true" promptText="Name" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="addressField" labelFloat="true" promptText="Address" GridPane.columnSpan="3" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="cityField" labelFloat="true" promptText="City" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="stateField" labelFloat="true" promptText="State" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="zipField" labelFloat="true" promptText="Zip" GridPane.rowIndex="6">
+
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </JFXTextField>
+      <JFXButton onAction="#cancel" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton onAction="#submitNewUser" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </JFXButton>
+   </children>
+
+</GridPane>

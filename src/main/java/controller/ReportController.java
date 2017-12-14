@@ -71,12 +71,12 @@ public class ReportController implements FxmlController {
           memberReport += String.format("\n%s", rs.getString("mem.mem_state"));
           memberReport += String.format("\n%s", rs.getInt("mem.mem_zip"));
           memberReport += "\nServices received:";
-          /*do{
+          do{
             memberReport += String.format("\n\t%s", rs.getDate("servhs.serv_dte"));
             memberReport += String.format("\n\t%s", rs.getString("prov.prov_name"));
             memberReport += String.format("\n%s", rs.getString("serv.serv_name"));
-          }while(rs.next() && memName.compare(rs.getString("mem.mem_name")));
-          fh.writeMemberReport(memberReport, memName, memId);*/
+          }while(rs.next() && memName.equals(rs.getString("mem.mem_name")));
+          fh.writeMemberReport(memberReport, memName, memId);
         }
     }
 
@@ -123,7 +123,7 @@ public class ReportController implements FxmlController {
           providerReport += String.format("\n%s", rs.getString("prov.prov_state"));
           providerReport += String.format("\n%s", rs.getInt("prov.prov_zip"));
           providerReport += "\nServices provided:";
-         /* do{
+         do{
             providerReport += String.format("\n\t%s", rs.getDate("servhs.serv_dte"));
             providerReport += String.format("\n\t%s", rs.getDate("servhs.tim_stmp"));
             providerReport += String.format("\n\t%s", rs.getString("mem.mem_name"));
@@ -131,10 +131,10 @@ public class ReportController implements FxmlController {
             providerReport += String.format("\n\t%d", rs.getInt("servhs.serv_fee"));
             totalFee += rs.getInt("servhs.serv_fee");
             totalConsultations++;
-          }while(rs.next() && proName.compare(rs.getString("prov.prov_name")));
+          }while(rs.next() && proName.equals(rs.getString("prov.prov_name")));
           providerReport += String.format("\nTotal number of consultations: %s", totalConsultations);
           providerReport += String.format("\nTotal fee for the week: %s", totalFee);
-          fh.writeProviderReport(providerReport, proName, proId);*/
+          fh.writeProviderReport(providerReport, proName, proId);
         }
     }
 

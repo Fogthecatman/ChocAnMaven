@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
@@ -7,9 +8,23 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
 
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OperatorController">
    <children>
+
+      <JFXComboBox fx:id="userTypeComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.rowIndex="0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Label> Member </Label>
+               <Label> Provider </Label>
+            </FXCollections>
+         </items>
+         <GridPane.margin>
+            <Insets bottom="30.0" top="50.0" />
+         </GridPane.margin>
+      </JFXComboBox>
+
       <JFXTextField fx:id="idField" labelFloat="true" promptText="ID" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="20.0" />
@@ -46,21 +61,16 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton onAction="#createNewUser" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="New User" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin>
-      </JFXButton>
       <JFXButton onAction="#cancel" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton onAction="#submit" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <JFXButton onAction="#submitEditUser" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </JFXButton>
+      <JFXCheckBox fx:id="checkAcntSuspension" text="Account Suspension" GridPane.rowIndex="7" />
    </children>
-
 </GridPane>

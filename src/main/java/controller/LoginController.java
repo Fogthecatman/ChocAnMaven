@@ -16,6 +16,8 @@ import java.sql.SQLException;
 
 /**
  * Created by Jacob on 11/6/17.
+ *
+ * TO FIX: combobutton needs to be reset after logout and login
  */
 public class LoginController implements FxmlController {
 
@@ -106,6 +108,7 @@ public class LoginController implements FxmlController {
 
     @Override
     public void updateUser() {
+
         return;
     }
 

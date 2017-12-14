@@ -13,18 +13,19 @@ import javax.xml.ws.Service;
  *
  * This class is a Singleton for switching views
  *
+ * @TODO: Naming conventions for variables.
  */
 
-enum View { LOGIN, SERVICE_ENTRY, OPERATOR, CHOICE, REPORTS }
+enum View { LOGIN, SERVICE_ENTRY, NEW_USER, EDIT_USER, DELETE_USER, CHOICE, REPORTS }
 
 public class StateController {
 
     private static StateController sc;
 
-    private Parent login, service, operator, choice, report;
-    private Scene currentScene, loginScene, serviceScene, operatorScene, choiceScene, reportScene;
+    private Parent login, service, editUser, newUser, deleteUser, choice, report;
+    private Scene currentScene, loginScene, serviceScene, editUserScene, newUserScene, deleteUserScene, choiceScene, reportScene;
     private Stage primaryStage;
-    FxmlController lc, sec, cc, oc, rc;
+    FxmlController lc, sec, cc, editUserCntrl, newUserCntrl, deleteUserCntrl, rc;
     
 
     protected StateController() {
@@ -58,9 +59,17 @@ public class StateController {
             choice = choiceLoader.load();
             cc = choiceLoader.getController();
 
-            FXMLLoader opLoader = new FXMLLoader(getClass().getResource("../view/operator.fxml"));
-            operator = opLoader.load();
-            oc = opLoader.getController();
+            FXMLLoader editUserLoader = new FXMLLoader(getClass().getResource("../view/edit_user.fxml"));
+            editUser = editUserLoader.load();
+            editUserCntrl = editUserLoader.getController();
+
+            FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("../view/new_user.fxml"));
+            newUser = newUserLoader.load();
+            newUserCntrl = newUserLoader.getController();
+
+            FXMLLoader deleteUserLoader = new FXMLLoader(getClass().getResource("../view/delete_user.fxml"));
+            deleteUser = deleteUserLoader.load();
+            deleteUserCntrl = deleteUserLoader.getController();
 
             FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("../view/reports.fxml"));
             report = reportLoader.load();
@@ -69,7 +78,9 @@ public class StateController {
             loginScene = new Scene(login, 600, 700);
             serviceScene = new Scene(service, 600, 700);
             choiceScene = new Scene(choice, 600, 700);
-            operatorScene = new Scene(operator, 600, 700);
+            editUserScene = new Scene(editUser, 600, 700);
+            newUserScene = new Scene(newUser, 600, 700);
+            deleteUserScene = new Scene(deleteUser, 600, 700);
             reportScene = new Scene(report, 600, 700);
 
             currentScene = loginScene;
@@ -102,8 +113,12 @@ public class StateController {
             cc.updateUser();
             cc.viewLoad();
         }
-        else if(v == View.OPERATOR)
-            currentScene = operatorScene;
+        else if(v == View.NEW_USER)
+            currentScene = newUserScene;
+        else if(v == View.EDIT_USER)
+            currentScene = editUserScene;
+        else if(v == View.DELETE_USER)
+            currentScene = deleteUserScene;
         else if(v == View.REPORTS)
             currentScene = reportScene;
 
@@ -113,5 +128,6 @@ public class StateController {
         primaryStage.setScene(currentScene);
         primaryStage.show();
     }
+
 
 }

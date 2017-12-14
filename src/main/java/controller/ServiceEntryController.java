@@ -59,36 +59,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
         dateSelector.setValue(LocalDate.now());
         dateSelector.setDefaultColor(Color.rgb(40, 59, 185));
 
-        serviceRf = new RequiredFieldValidator();
-        serviceRf2 = new RequiredFieldValidator();
-
-
-        //http://useof.org/java-open-source/com.jfoenix.validation.RequiredFieldValidator
-
-        serviceRf.setMessage("Input Required");
-        serviceRf2.setMessage("Must be 4 Characters");
-
-        serviceIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
-            //if(!newValue) {
-                //serviceIdField.getValidators().add(serviceRf);
-                //serviceIdField.validate();
-            //}
-            if (!validateServiceID(serviceIdField.getText())) {
-                serviceIdField.getValidators().add(serviceRf2);
-                serviceIdField.validate();
-            }
-        });
-
-        //memberIdField.getValidators().add(rf2);
-
-        memberIdField.focusedProperty().addListener((o, oldValue, newValue) -> {
-            if(!newValue) {
-                memberIdField.validate();
-            }
-        });
-
-        //Submit button is disabled until the mandatory fields are filled
-        submitBtn.disableProperty().bind((memberIdField.textProperty().isNotEmpty().and(serviceIdField.textProperty().isNotEmpty()).not()));
     }
 
     @Override
