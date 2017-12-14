@@ -105,10 +105,9 @@ public class ServiceEntryController implements Initializable, FxmlController {
        String comment = commentArea.getText();
        int memberID = Integer.parseInt(memberIdField.getText());
        String servDate = dateSelector.getValue().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-        System.out.println(servDate);
 
        //Write values to database
-        String servEntryQuery = db.createNewServiceEntry(servDate, u.getUserID(), memberID, serviceID);
+        String servEntryQuery = db.createNewServiceEntry(servDate, comment, u.getUserID(), memberID, serviceID);
         db.executeUpdateQuery(servEntryQuery);
 
         //Display "Submission successful on GUI when completed

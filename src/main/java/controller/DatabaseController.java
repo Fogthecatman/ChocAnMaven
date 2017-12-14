@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.String;
 import java.sql.*;
-import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -177,14 +176,11 @@ public class DatabaseController {
     /**
      * This method is used so that the record is written to the Service History Table
      */
-    public String createNewServiceEntry(String servDate, int provID, int memID,  int servID) throws SQLException
+    public String createNewServiceEntry(String servDate, String servCom, int provID, int memID,  int servID) throws SQLException
     {
-        //@TODO: Needs fixing
-        Date date = new Date();
-        Timestamp ts = new Timestamp(date.getTime());
-        System.out.println(ts.toString());
         // This is needed cause you can't do a select inside a insert into statement
         String servFeeQuery =  getServFee(servID);
+
         /* execute the query and then save the resultset of serv fee to a double */
         Double servFee = 0.0;
         ResultSet rs = executeSql(servFeeQuery);
@@ -192,11 +188,12 @@ public class DatabaseController {
         if(rs.next())
             servFee = rs.getDouble("serv_fee");
 
+
         return String.format("insert into serv_his_tbl " +
                         "Values " +
-                        "(%d, %d, %d, %s, CURRENT_TIMESTAMP, %f)",
+                        "(%d, %d, %d, '%s', GETDATE(), %f, '%s');",
                     provID, memID, servID, servDate,
-                    servFee);
+                    servFee, servCom);
     }
 
     public String getServFee(int servNumber)

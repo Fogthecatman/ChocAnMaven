@@ -40,11 +40,12 @@ CREATE TABLE prov_tbl (
 );
 
 CREATE TABLE serv_his_tbl (
-    prov_id		int			Not Null,
-    mem_id		int			Not Null,
-    serv_id		int			Not Null,
-	serv_dte	DATE		  Not Null,
-	tim_stmp	TIMESTAMP	Not Null,
-	serv_fee	int			  Not Null,
+    prov_id		int			    Not Null,
+    mem_id		int			    Not Null,
+    serv_id		int			    Not Null,
+	serv_dte	varchar(40)		Not Null,
+	tim_stmp	DATETIME	    Not Null DEFAULT(GETDATE()),
+	serv_fee	int			    Not Null,
+    serv_com    varchar(101)    Not Null,
 	PRIMARY KEY(prov_id, mem_id, serv_id, serv_dte)
 );
