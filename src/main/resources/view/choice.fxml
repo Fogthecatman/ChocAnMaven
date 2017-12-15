@@ -13,16 +13,17 @@
 <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoiceController">
    <children>
 
-      <JFXComboBox fx:id="userComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.rowIndex="1" onAction="#logOut">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <Label> Log out </Label>
-            </FXCollections>
-         </items>
+      <JFXTextField fx:id="userField" editable="false" GridPane.rowIndex="1" >
          <GridPane.margin>
-            <Insets bottom="30.0" top="50.0" />
+            <Insets bottom="40.0" />
          </GridPane.margin>
-      </JFXComboBox>
+      </JFXTextField>
+
+      <JFXButton fx:id="logOutBtn" onAction="#logOut" text="Log Out" style="-fx-background-color: #e3e3e3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="40.0" left="20.0" />
+         </GridPane.margin>
+      </JFXButton>
 
       <JFXButton fx:id="serviceEntryButton" onAction="#serviceEntry" style="-fx-background-color: #e3e3e3;" text="Service" GridPane.rowIndex="3">
          <GridPane.margin>
@@ -35,7 +36,7 @@
          </GridPane.margin>
       </JFXButton>
 
-      <JFXButton fx:id="addUsersButton" onAction="#addUsers" style="-fx-background-color: e3e3e3;" text="Add Users" GridPane.rowIndex="3" >
+      <JFXButton fx:id="addUsersButton" onAction="#addUsers" style="-fx-background-color: e3e3e3;" text="Add Users" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="20.0" />
          </GridPane.margin>
@@ -52,6 +53,7 @@
       </JFXButton>
    </children>
    <columnConstraints>
+      <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>

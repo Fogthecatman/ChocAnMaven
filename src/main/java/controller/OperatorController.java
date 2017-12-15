@@ -4,10 +4,14 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import model.User;
 
+import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,9 +22,12 @@ public class OperatorController implements FxmlController {
     public JFXTextField stateField;
     public JFXTextField cityField;
     public JFXTextField nameField;
-    public TextField idField;
+    public JFXTextField idField;
+
     public JFXComboBox userTypeComboBox;
+
     public JFXTextArea dataArea;
+
     public JFXCheckBox checkAcntSuspension;
 
     /* @TODO    Buttons (except for Service btn) will need to be added dynamically from User Permissions
@@ -36,7 +43,18 @@ public class OperatorController implements FxmlController {
 
     @Override
     public void viewLoad() {
+        checkAcntSuspension.setVisible(true);
 
+        userTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue value, String old, String newVal) {
+                if(newVal.equals("Provider")) {
+                    checkAcntSuspension.setVisible(false);
+                }
+                else {
+                    checkAcntSuspension.setVisible(true);
+                }
+            }
+        });
     }
 
     public void validateID(ActionEvent actionEvent) {
@@ -73,6 +91,7 @@ public class OperatorController implements FxmlController {
     
     //Canceling form
     public void cancel(ActionEvent actionEvent) {
+        sc.setView(View.CHOICE);
     }
 
     public void submitNewUser(ActionEvent actionEvent) {
@@ -82,5 +101,9 @@ public class OperatorController implements FxmlController {
     }
 
     public void submitDeleteUser(ActionEvent actionEvent) {
+    }
+
+    public void changedComboType(ActionEvent actionEvent) {
+
     }
 }

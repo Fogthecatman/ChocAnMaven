@@ -25,7 +25,7 @@ public class StateController {
     private Parent login, service, editUser, newUser, deleteUser, choice, report;
     private Scene currentScene, loginScene, serviceScene, editUserScene, newUserScene, deleteUserScene, choiceScene, reportScene;
     private Stage primaryStage;
-    FxmlController lc, sec, cc, editUserCntrl, newUserCntrl, deleteUserCntrl, rc;
+    private FxmlController lc, sec, cc, operatorController, rc;
     
 
     protected StateController() {
@@ -61,15 +61,13 @@ public class StateController {
 
             FXMLLoader editUserLoader = new FXMLLoader(getClass().getResource("../view/edit_user.fxml"));
             editUser = editUserLoader.load();
-            editUserCntrl = editUserLoader.getController();
+            operatorController = editUserLoader.getController();
 
             FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("../view/new_user.fxml"));
             newUser = newUserLoader.load();
-            newUserCntrl = newUserLoader.getController();
 
             FXMLLoader deleteUserLoader = new FXMLLoader(getClass().getResource("../view/delete_user.fxml"));
             deleteUser = deleteUserLoader.load();
-            deleteUserCntrl = deleteUserLoader.getController();
 
             FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("../view/reports.fxml"));
             report = reportLoader.load();
@@ -113,12 +111,18 @@ public class StateController {
             cc.updateUser();
             cc.viewLoad();
         }
-        else if(v == View.NEW_USER)
+        else if(v == View.NEW_USER) {
             currentScene = newUserScene;
-        else if(v == View.EDIT_USER)
+            operatorController.viewLoad();
+        }
+        else if(v == View.EDIT_USER) {
             currentScene = editUserScene;
-        else if(v == View.DELETE_USER)
+            operatorController.viewLoad();
+        }
+        else if(v == View.DELETE_USER) {
             currentScene = deleteUserScene;
+            operatorController.viewLoad();
+        }
         else if(v == View.REPORTS)
             currentScene = reportScene;
 

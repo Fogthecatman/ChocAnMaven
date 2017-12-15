@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
@@ -15,13 +16,14 @@ import java.util.ResourceBundle;
  * Created by Jacob on 12/2/17.
  */
 public class ChoiceController implements FxmlController {
-
-    public JFXComboBox userComboBox;
+    
     public JFXButton reportsButton;
     public JFXButton serviceEntryButton;
     public JFXButton addUsersButton;
     public JFXButton deleteUsersButton;
     public JFXButton editUsersButton;
+    public JFXTextField userField;
+    public JFXButton logOutBtn;
     private StateController sc;
     private User u;
 
@@ -49,6 +51,9 @@ public class ChoiceController implements FxmlController {
         if(permLvl.equals("manager")){
             reportsButton.setVisible(true);
         }
+
+        //Giving away focus colors to Login Text Field
+        userField.setFocusTraversable(false);
     }
 
     private void hideButtons() {
@@ -74,7 +79,7 @@ public class ChoiceController implements FxmlController {
     @Override
     public void updateUser() {
         System.out.println(u.getName());
-        userComboBox.setPromptText(u.getName());
+        userField.setText(u.getName());
     }
 
 
