@@ -11,13 +11,14 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.collections.FXCollections?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="controller.OperatorController"
-          prefHeight="400.0" prefWidth="600.0"
+          prefHeight="400.0" prefWidth="500.0"
           alignment="CENTER">
     <children>
-        <JFXComboBox fx:id="userTypeComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.rowIndex="0">
+        <JFXComboBox fx:id="userTypeComboBox" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Member" />
@@ -32,42 +33,37 @@
             </GridPane.margin>
         </JFXComboBox>
 
-        <JFXTextField fx:id="nameField" labelFloat="true" promptText="Name" GridPane.rowIndex="1">
+        <JFXTextField fx:id="idField" labelFloat="true" promptText="ID" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets bottom="20.0" />
             </GridPane.margin>
         </JFXTextField>
-        <JFXTextField fx:id="addressField" labelFloat="true" promptText="Address" GridPane.columnSpan="3" GridPane.rowIndex="2">
+        <JFXTextArea fx:id="dataArea" labelFloat="true" GridPane.columnSpan="2" GridPane.rowIndex="4" focusTraversable="false"  editable="false"/>
+        <JFXButton onAction="#validateID" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
-                <Insets bottom="20.0" />
+                <Insets left="20.0" bottom="20.0"/>
             </GridPane.margin>
-        </JFXTextField>
-        <JFXTextField fx:id="cityField" labelFloat="true" promptText="City" GridPane.rowIndex="3">
-            <GridPane.margin>
-                <Insets bottom="20.0" />
-            </GridPane.margin>
-        </JFXTextField>
-        <JFXTextField fx:id="stateField" labelFloat="true" promptText="State" GridPane.rowIndex="4">
-            <GridPane.margin>
-                <Insets bottom="20.0" />
-            </GridPane.margin>
-        </JFXTextField>
-        <JFXTextField fx:id="zipField" labelFloat="true" promptText="Zip" GridPane.rowIndex="5">
+        </JFXButton>
 
+        <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <children>
+                <JFXButton onAction="#cancel" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Cancel" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                    <GridPane.margin>
+                        <Insets left="20.0" top="50.0"/>
+                    </GridPane.margin>
+                </JFXButton>
+                <JFXButton onAction="#submitEditUser" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <HBox.margin>
+                        <Insets left="20.0" />
+                    </HBox.margin>
+                </JFXButton>
+            </children>
             <GridPane.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="40.0" />
             </GridPane.margin>
-        </JFXTextField>
-        <JFXButton onAction="#cancel" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="6">
-            <GridPane.margin>
-                <Insets left="20.0" />
-            </GridPane.margin>
-        </JFXButton>
-        <JFXButton onAction="#submitNewUser" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="6">
-            <GridPane.margin>
-                <Insets left="20.0" />
-            </GridPane.margin>
-        </JFXButton>
+        </HBox>
+
+
     </children>
 
 </GridPane>
