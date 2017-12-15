@@ -98,6 +98,22 @@ public class OperatorController implements FxmlController {
     }
 
     public void submitEditUser(ActionEvent actionEvent) {
+        int id = Integer.parseInt(idField.getText());
+        String name = nameField.getText();
+        String address = addressField.getText();
+        String city = cityField.getText();
+        String state = stateField.getText();
+        int zip = Integer.parseInt(zipField.getText());
+        int acctErr = (checkAcntSuspension.isSelected()) ? 1:0;
+
+        if(userTypeComboBox.getValue().toString().equals("Member")){
+            db.updateMember(id, name, address, city, state, zip, acctErr);
+        }
+        else{
+            db.updateProvider(id, name, address, city, state, zip);
+        }
+
+
     }
 
     public void submitDeleteUser(ActionEvent actionEvent) {
