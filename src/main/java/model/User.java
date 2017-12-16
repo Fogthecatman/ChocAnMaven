@@ -11,7 +11,7 @@ public class User {
 
     private static User u;
 
-    public User() {
+    protected User() {
         permissionLevel = "";
         userID = 0;
         name = "";

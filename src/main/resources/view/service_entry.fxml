@@ -15,11 +15,25 @@
             <Insets bottom="40.0" left="20.0" />
          </GridPane.margin>
       </JFXButton>
-      <JFXButton onAction="#validateService" fx:id="validateServiceBtn" style="-fx-background-color: e3e3e3;" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="3">
+
+      <HBox prefHeight="40.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <JFXButton onAction="#validateService" fx:id="validateServiceBtn" style="-fx-background-color: e3e3e3;" text="Validate">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#sendServiceCodes" fx:id="serviceCodesBtn" style="-fx-background-color: e3e3e3;" text="Send Service Codes">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="40.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
          <GridPane.margin>
-            <Insets bottom="40.0" left="20.0" />
+            <Insets bottom="40.0" />
          </GridPane.margin>
-      </JFXButton>
+      </HBox>
+
       <JFXTextField fx:id="memberIdField" labelFloat="true" promptText="Member ID" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="40.0" />

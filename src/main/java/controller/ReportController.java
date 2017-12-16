@@ -11,24 +11,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class ReportController implements FxmlController {
+public class ReportController {
 
-    public JFXButton providerRptBtn;
     private FileHandler fh;
     private DatabaseController db;
-
-
 
     private enum ReportType { MEMBER, PROVIDER, MANAGER }
 
     public ReportController() {
         fh = new FileHandler();
         db = DatabaseController.getInstance();
-    }
-
-    @Override
-    public void viewLoad() {
-
     }
 
     public void actionProviderReport(ActionEvent actionEvent) throws SQLException {
@@ -48,26 +40,6 @@ public class ReportController implements FxmlController {
         ResultSet rs = db.executeSql(db.getManagersWeeklyReport());
 
         createManagerReport(rs);
-    }
-
-    @Override
-    public void updateUser() {
-
-    }
-
-    public void createReport(ReportType type, ResultSet rs) throws SQLException {
-        switch(type) {
-            case MEMBER:
-                createMemberReport(rs);
-                break;
-            case PROVIDER:
-                createProviderReport(rs);
-                break;
-            case MANAGER:
-                createManagerReport(rs);
-                break;
-            default: break;
-        }
     }
 
     private void createMemberReport(ResultSet rs) throws SQLException {

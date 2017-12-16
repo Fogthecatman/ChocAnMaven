@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import model.User;
 import util.Regex;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,6 +45,8 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public JFXTextField serviceIdField;
     public JFXTextField memberIdField;
+
+    private JFrame servCodes;
 
     private  RequiredFieldValidator serviceRf, serviceRf2;
 
@@ -192,4 +195,7 @@ public class ServiceEntryController implements Initializable, FxmlController {
         submitBtn.setDisable(true);
     }
 
+    public void sendServiceCodes(ActionEvent actionEvent) {
+        showError("Sent Service Codes");
+    }
 }

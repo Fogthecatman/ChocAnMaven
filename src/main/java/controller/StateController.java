@@ -25,7 +25,7 @@ public class StateController {
     private Parent login, service, editUser, newUser, deleteUser, choice, report;
     private Scene currentScene, loginScene, serviceScene, editUserScene, newUserScene, deleteUserScene, choiceScene, reportScene;
     private Stage primaryStage;
-    private FxmlController lc, sec, cc, operatorController, rc;
+    private FxmlController sec, cc, operatorController;
     
 
     protected StateController() {
@@ -49,7 +49,6 @@ public class StateController {
         try {
             FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("../view/login.fxml"));
             login = loginLoader.load();
-            lc = loginLoader.getController();
 
             FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("../view/service_entry.fxml"));
             service = serviceLoader.load();
@@ -71,7 +70,6 @@ public class StateController {
 
             FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("../view/reports.fxml"));
             report = reportLoader.load();
-            rc = reportLoader.getController();
 
             loginScene = new Scene(login, 600, 700);
             serviceScene = new Scene(service, 600, 700);
@@ -82,9 +80,6 @@ public class StateController {
             reportScene = new Scene(report, 600, 700);
 
             currentScene = loginScene;
-
-            //Set stylesheet for current
-            //currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,6 +127,5 @@ public class StateController {
         primaryStage.setScene(currentScene);
         primaryStage.show();
     }
-
 
 }

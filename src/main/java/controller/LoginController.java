@@ -19,7 +19,7 @@ import java.sql.SQLException;
  *
  * TO FIX: combobutton needs to be reset after logout and login
  */
-public class LoginController implements FxmlController {
+public class LoginController {
 
     public Label errorLabel;
     private StateController sc;
@@ -36,10 +36,6 @@ public class LoginController implements FxmlController {
         u = User.getInstance();
     }
 
-    @Override
-    public void viewLoad() {
-
-    }
 
     //Validates id user enters in LoginView
     public boolean validate(int id) throws SQLException{
@@ -104,12 +100,6 @@ public class LoginController implements FxmlController {
 
     private void showError(String error) {
         errorLabel.setText(error);
-    }
-
-    @Override
-    public void updateUser() {
-
-        return;
     }
 
 
