@@ -79,6 +79,10 @@ public class OperatorController implements FxmlController {
 
     }
 
+    public void searchMemberID(ActionEvent actionEvent){
+
+    }
+
     public void createNewUser() {
         db.createNewMember(nameField.getText(), addressField.getText(), 
                             cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));

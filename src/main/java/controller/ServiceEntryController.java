@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import model.User;
+import util.Regex;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -123,8 +124,13 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public void validateID(ActionEvent actionEvent) throws SQLException {
         //cannot have null field
-        if(memberIdField.getText().equals(""))
+        if(memberIdField.getText().equals("") || !(Regex.isInteger(memberIdField.getText()))){
+            memberIdField.setUnFocusColor(Color.RED);
+            validateIdBtn.setStyle("-fx-background-color: #ff0000;");
+            memberIsValid = false;
             return;
+        }
+
 
         int memID = Integer.parseInt(memberIdField.getText());
         boolean notEmpty = false;
@@ -147,8 +153,12 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public void validateService(ActionEvent actionEvent) throws SQLException {
         //cannot have null field
-        if(serviceIdField.getText().equals(""))
+        if(serviceIdField.getText().equals("") || !(Regex.isInteger(serviceIdField.getText()))){
+            serviceIdField.setUnFocusColor(Color.RED);
+            validateServiceBtn.setStyle("-fx-background-color: #ff0000;");
+            serviceIsValid = false;
             return;
+        }
 
         int servCode = Integer.parseInt(serviceIdField.getText());
         ResultSet rs = db.executeSql(db.getChocAnServiceValidation(servCode));

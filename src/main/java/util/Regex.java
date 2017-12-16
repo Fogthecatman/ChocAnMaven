@@ -10,4 +10,8 @@ public class Regex {
         return false;
     }
 
+    public static boolean isInteger(String s){
+        return  s.matches("^-?\\d+$");
+    }
+
 }
