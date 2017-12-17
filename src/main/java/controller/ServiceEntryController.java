@@ -111,7 +111,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
     }
 
     public void cancel(ActionEvent actionEvent) {
-        //@TODO This call throws an error due to the changes in scenes. Need help fixing.
         sc.setView(View.CHOICE);
     }
 

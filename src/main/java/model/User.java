@@ -44,7 +44,6 @@ public class User {
     }
 
     public int getUserID() {
-        //@TODO Are we storing userID's in DB without leading zeroes?
         return userID;
     }
 

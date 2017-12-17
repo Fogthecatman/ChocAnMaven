@@ -197,6 +197,14 @@ public class DatabaseController {
                 servNumber);
     }
 
+    public String getMemberInfo(int memNumber){
+        return String.format("select * from mem_tbl where mem_id = %d", memNumber);
+    }
+
+    public String getProviderInfo(int provNumber){
+        return String.format("select * from prov_tbl where prov_id = %d", provNumber);
+    }
+
     /**
      * These methods are used for validating that a service, member or provider
      * actually exist within the database.

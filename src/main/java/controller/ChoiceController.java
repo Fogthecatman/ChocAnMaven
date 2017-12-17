@@ -34,8 +34,6 @@ public class ChoiceController implements FxmlController {
 
     @Override
     public void viewLoad() {
-
-        //@TODO: Fix this to make it shows correct buttons
         String permLvl = u.getPermissionLevel();
 
         hideButtons();
@@ -92,7 +90,6 @@ public class ChoiceController implements FxmlController {
     }
 
     public void logOut(ActionEvent actionEvent) {
-        //@TODO: reset user data to null
         sc.setView(View.LOGIN);
     }
 }

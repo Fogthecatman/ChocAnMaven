@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class FileHandler {
-
-    //@TODO: Probably want to pass in List of reports
     public void writeMemberReport(String report, String path, String memName, int memID){
         LocalDate ld = LocalDate.now();
         String fileName = memName + "-" + memID + "_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";

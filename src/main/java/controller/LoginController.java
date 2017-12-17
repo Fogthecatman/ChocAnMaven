@@ -66,7 +66,6 @@ public class LoginController {
         return false;
     }
 
-    //@TODO regex validation for passing values
     public void submit(ActionEvent actionEvent) throws Exception {
 
         System.out.println(userField.getText() + " length:" + userField.getText().length());
@@ -82,7 +81,6 @@ public class LoginController {
             showError("Invalid Provider number.");
         }
         else{
-            //@TODO: Need to make this actually display the correct view now
             userField.setText(""); //Clearing text for if user logs out.
             sc.setView(View.CHOICE);
         }

@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -14,10 +15,12 @@ import model.User;
 import util.Regex;
 
 import java.awt.*;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class OperatorController implements FxmlController {
+public class OperatorController implements Initializable, FxmlController {
 
     public JFXTextField addressField;
     public JFXTextField zipField;
@@ -33,15 +36,18 @@ public class OperatorController implements FxmlController {
     public JFXCheckBox checkAcntSuspension;
     public Label errorLabel;
 
-    /* @TODO    Buttons (except for Service btn) will need to be added dynamically from User Permissions
-    */
-
     private StateController sc;
     private DatabaseController db;
+    private String view;
 
     public OperatorController() {
         sc = StateController.getInstance();
         db = DatabaseController.getInstance();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
     @Override
@@ -60,47 +66,158 @@ public class OperatorController implements FxmlController {
         });
     }
 
-    public void validateID(ActionEvent actionEvent) {
-        //why not just pass in what this equals to into the actual function
-        int memberID = Integer.parseInt(idField.getText());
-        ResultSet rs = db.executeSql(db.getChocAnMemberValidation(memberID));
 
-        boolean notEmpty = false;
-        try {
-            notEmpty = rs.next();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void searchIDEdit(ActionEvent actionEvent) throws SQLException{
+        int userID;
+        ResultSet rs;
+        String userType;
+
+        if(Regex.isInteger(idField.getText()))
+            userID = Integer.parseInt(idField.getText());
+        else{
+            showMessage("ID is not an integer.");
+            return;
         }
 
-        if(notEmpty) {
-            try {
-                System.out.println(rs.getString("mem_name"));
-            } catch (Exception e) {
-                e.printStackTrace();
+
+        if(userTypeComboBox.getValue().equals("Member")){
+            rs = db.executeSql(db.getMemberInfo(userID));
+            userType = "mem";
+        }
+        else{
+            rs = db.executeSql(db.getProviderInfo(userID));
+            userType = "prov";
+        }
+
+        if(rs.next()){
+            String name = rs.getString(userType + "_name");
+            String address = rs.getString(userType + "_addr");
+            String city = rs.getString(userType + "_city");
+            String state = rs.getString(userType + "_state");
+            int zip = rs.getInt(userType + "_zip");
+            boolean acctFlag = false;
+            if(userType.equals("mem"))
+                acctFlag = (rs.getInt("acc_err_flg") != 0);
+
+            nameField.setText(name);
+            addressField.setText(address);
+            cityField.setText(city);
+            stateField.setText(state);
+            zipField.setText(zip + "");
+            if(userType.equals("mem"))
+                checkAcntSuspension.setSelected(acctFlag);
+
+        }
+
+        idField.setDisable(true);
+
+    }
+
+    public void searchIDDelete(ActionEvent actionEvent) throws SQLException {
+        int userID;
+        ResultSet rs;
+        String userType;
+
+        if(Regex.isInteger(idField.getText()))
+            userID = Integer.parseInt(idField.getText());
+        else{
+            showMessage("ID is not an integer.");
+            return;
+        }
+
+
+        if(userTypeComboBox.getValue().equals("Member")){
+            rs = db.executeSql(db.getMemberInfo(userID));
+            userType = "mem";
+        }
+        else{
+            rs = db.executeSql(db.getProviderInfo(userID));
+            userType = "prov";
+        }
+
+        if(rs.next()){
+            String name = rs.getString(userType + "_name");
+            String address = rs.getString(userType + "_addr");
+            String city = rs.getString(userType + "_city");
+            String state = rs.getString(userType + "_state");
+            int zip = rs.getInt(userType + "_zip");
+            String acctFlgMsg = "";
+            if(userType.equals("mem")){
+                acctFlgMsg = (rs.getInt("acc_err_flg") == 0) ? "Account is valid.":"Account is flagged.";
+
             }
+
+
+            String deleteUserText = String.format("Name: %s\n" +
+                                                    "Address: %s\n" +
+                                                    "City: %s\n" +
+                                                    "State: %s\n" +
+                                                    "Zip: %d\n%s", name, address, city, state, zip, acctFlgMsg);
+
+            dataArea.setText(deleteUserText);
+
         }
 
+        idField.setDisable(true);
     }
-
-    public void searchMemberID(ActionEvent actionEvent){
-
-    }
+    
 
     @Override
     public void updateUser() {
 
     }
-    
-    //Canceling form
-    public void cancel(ActionEvent actionEvent) {
+
+    public void cancelNew(){
+        clearNewFields();
         sc.setView(View.CHOICE);
     }
+
+    //Canceling form
+    public void cancelEdit(ActionEvent actionEvent) {
+        clearEditFields();
+        sc.setView(View.CHOICE);
+    }
+
+    public void cancelDelete(ActionEvent actionEvent) {
+        clearDeleteFields();
+        sc.setView(View.CHOICE);
+    }
+
+    public void clearNewFields(){
+        nameField.clear();
+        addressField.clear();
+        cityField.clear();
+        stateField.clear();
+        zipField.clear();
+        showMessage("");
+    }
+
+    public void clearEditFields(){
+        idField.clear();
+        nameField.clear();
+        addressField.clear();
+        cityField.clear();
+        stateField.clear();
+        zipField.clear();
+        checkAcntSuspension.setSelected(false);
+        showMessage("");
+        idField.setDisable(false);
+    }
+
+    public void clearDeleteFields(){
+        idField.clear();
+        dataArea.clear();
+        showMessage("");
+        idField.setDisable(false);
+    }
+
+
 
     public void submitNewUser(ActionEvent actionEvent) {
 
         System.out.println(userTypeComboBox.getValue().toString());
 
-        boolean validated = validateFields("new user");
+        boolean validated = validateFields();
 
         //if fields aren't valid we need to
         if(!validated) return;
@@ -124,6 +241,9 @@ public class OperatorController implements FxmlController {
     }
 
     public void submitEditUser(ActionEvent actionEvent) {
+        if(!validateFields())
+            return;
+
         int id = Integer.parseInt(idField.getText());
         String name = nameField.getText();
         String address = addressField.getText();
@@ -139,10 +259,11 @@ public class OperatorController implements FxmlController {
             db.updateProvider(id, name, address, city, state, zip);
         }
 
-
+        showMessage("Changes successful!");
     }
 
     public void submitDeleteUser(ActionEvent actionEvent) {
+
     }
 
     public void changedComboType(ActionEvent actionEvent) {
@@ -153,7 +274,7 @@ public class OperatorController implements FxmlController {
         errorLabel.setText(error);
     }
 
-    public boolean validateFields(String viewType) {
+    public boolean validateFields() {
 
         String errorMsg = "";
 
@@ -169,12 +290,12 @@ public class OperatorController implements FxmlController {
             errorMsg += "City Field too many characters (40),\n";
         }
 
-        if(!Regex.exactCharLength(zipField.getText(), 5)){
-            errorMsg += "Zip Field too many characters (5),\n";
+        if(!Regex.exactCharLength(zipField.getText(), 5) || !Regex.isInteger(zipField.getText())){
+            errorMsg += "Zip Field invalid (#####),\n";
         }
 
         if(!Regex.exactCharLength(stateField.getText(), 2)){
-            errorMsg += "State Field too many characters (5),\n";
+            errorMsg += "State Field too many characters (2),\n";
         }
 
         showMessage(errorMsg);
@@ -182,4 +303,5 @@ public class OperatorController implements FxmlController {
         //If errors in message then valid is false;
         return errorMsg.length() == 0;
     }
+
 }

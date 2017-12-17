@@ -43,7 +43,6 @@ public class ReportController {
     }
 
     private void createMemberReport(ResultSet rs) throws SQLException {
-        //@TODO write to file
         if(rs.isLast()){
           System.out.println("No report to generate.");
           return;
@@ -74,7 +73,6 @@ public class ReportController {
     }
 
     private void createManagerReport(ResultSet rs) throws SQLException {
-        //@TODO format ResultSet to ManagerReport, then write to file
         String managerReport = "";
 
         //Creating weekly folder
@@ -104,7 +102,6 @@ public class ReportController {
     }
 
     private void createProviderReport(ResultSet rs) throws SQLException {
-        //TODO format ResultSet to ProviderReport, then write to file
 
         String folderpath = fh.createWeeklyFolder("reports/providers/");
 
