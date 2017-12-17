@@ -178,13 +178,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
         }
     }
 
-    //Here is where we validate service codes, we can make a call do DB here
-    private boolean validateServiceID(String id) {
-        boolean valid = (id.length() == 4);
-        System.out.println(id + " validating " + valid);
-        return valid;
-    }
-
     private void submitBtnValidation(){
         if(memberIsValid && serviceIsValid)
             submitBtn.setDisable(false);
