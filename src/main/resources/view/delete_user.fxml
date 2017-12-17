@@ -63,6 +63,7 @@
             </GridPane.margin>
         </HBox>
 
+        <Label fx:id="errorLabel" GridPane.rowIndex="9" />
 
     </children>
 

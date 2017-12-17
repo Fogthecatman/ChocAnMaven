@@ -10,6 +10,10 @@ public class Regex {
         return false;
     }
 
+    public static boolean exactCharLength(String s, int limit) {
+        return s.length() == limit;
+    }
+
     public static boolean isInteger(String s){
         return  s.matches("^-?\\d+$");
     }

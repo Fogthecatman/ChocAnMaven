@@ -7,9 +7,11 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import model.User;
+import util.Regex;
 
 import java.awt.*;
 import java.sql.ResultSet;
@@ -29,6 +31,7 @@ public class OperatorController implements FxmlController {
     public JFXTextArea dataArea;
 
     public JFXCheckBox checkAcntSuspension;
+    public Label errorLabel;
 
     /* @TODO    Buttons (except for Service btn) will need to be added dynamically from User Permissions
     */
@@ -83,11 +86,6 @@ public class OperatorController implements FxmlController {
 
     }
 
-    public void createNewUser() {
-        db.createNewMember(nameField.getText(), addressField.getText(), 
-                            cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
-    }
-
     @Override
     public void updateUser() {
 
@@ -99,6 +97,30 @@ public class OperatorController implements FxmlController {
     }
 
     public void submitNewUser(ActionEvent actionEvent) {
+
+        System.out.println(userTypeComboBox.getValue().toString());
+
+        boolean validated = validateFields("new user");
+
+        //if fields aren't valid we need to
+        if(!validated) return;
+
+
+        if(userTypeComboBox.getValue().equals("Member")) {
+            db.createNewMember(nameField.getText(), addressField.getText(),
+                    cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
+
+            showMessage("Created new Member!");
+        }
+        else {
+            db.createNewProvider(nameField.getText(), addressField.getText(),
+                    cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
+
+            showMessage("Created new Provider!");
+        }
+
+
+
     }
 
     public void submitEditUser(ActionEvent actionEvent) {
@@ -125,5 +147,39 @@ public class OperatorController implements FxmlController {
 
     public void changedComboType(ActionEvent actionEvent) {
 
+    }
+
+    private void showMessage(String error) {
+        errorLabel.setText(error);
+    }
+
+    public boolean validateFields(String viewType) {
+
+        String errorMsg = "";
+
+        if(!Regex.characterLength(nameField.getText(), 40)){
+            errorMsg += "Name Field too many characters (40),\n";
+        }
+
+        if(!Regex.characterLength(addressField.getText(), 40)){
+            errorMsg += "Address Field too many characters (40),\n";
+        }
+
+        if(!Regex.characterLength(cityField.getText(), 40)){
+            errorMsg += "City Field too many characters (40),\n";
+        }
+
+        if(!Regex.exactCharLength(zipField.getText(), 5)){
+            errorMsg += "Zip Field too many characters (5),\n";
+        }
+
+        if(!Regex.exactCharLength(stateField.getText(), 2)){
+            errorMsg += "State Field too many characters (5),\n";
+        }
+
+        showMessage(errorMsg);
+
+        //If errors in message then valid is false;
+        return errorMsg.length() == 0;
     }
 }

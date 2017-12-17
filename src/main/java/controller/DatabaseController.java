@@ -242,7 +242,7 @@ public class DatabaseController {
                                 String state, int zip)
     {
         String query;
-        ResultSet rs = executeSql(getLargestID("prov"));
+        ResultSet rs = executeSql(getLargestID("mem"));
         int maxId = 0;
 
         try{

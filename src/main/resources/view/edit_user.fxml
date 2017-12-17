@@ -75,5 +75,6 @@
          </GridPane.margin>
       </JFXButton>
       <JFXCheckBox fx:id="checkAcntSuspension" text="Account Suspension" GridPane.rowIndex="7" />
+      <Label fx:id="errorLabel" GridPane.rowIndex="9" />
    </children>
 </GridPane>
