@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,17 +12,14 @@ import javafx.scene.paint.Color;
 import model.User;
 import util.Regex;
 
-import javax.swing.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class ServiceEntryController implements Initializable, FxmlController {
+public class ServiceEntryController implements Initializable {
 
     private StateController sc;
     private DatabaseController db;
@@ -45,10 +41,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     public JFXTextField serviceIdField;
     public JFXTextField memberIdField;
-
-    private JFrame servCodes;
-
-    private  RequiredFieldValidator serviceRf, serviceRf2;
 
     public ServiceEntryController() {
         sc = StateController.getInstance();
@@ -87,12 +79,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
         });
     }
 
-    @Override
-    public void viewLoad(){
-
-    }
-
-
     //Gets data from UI's text fields, writes values to database
     //@TODO: Need to implement some way to prevent submission if field have invalid data
     public void submit(ActionEvent actionEvent) throws Exception {
@@ -116,11 +102,6 @@ public class ServiceEntryController implements Initializable, FxmlController {
 
     private void showError(String error) {
         errorLabel.setText(error);
-    }
-
-    @Override
-    public void updateUser() {
-
     }
 
 

@@ -4,16 +4,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.User;
-
-import javax.xml.ws.Service;
 
 /**
  * Created by Jacob on 11/17/17.
  *
  * This class is a Singleton for switching views
- *
- * @TODO: Naming conventions for variables.
  */
 
 enum View { LOGIN, SERVICE_ENTRY, NEW_USER, EDIT_USER, DELETE_USER, CHOICE, REPORTS }
@@ -22,10 +17,9 @@ public class StateController {
 
     private static StateController sc;
 
-    private Parent login, service, editUser, newUser, deleteUser, choice, report;
     private Scene currentScene, loginScene, serviceScene, editUserScene, newUserScene, deleteUserScene, choiceScene, reportScene;
     private Stage primaryStage;
-    private FxmlController sec, cc, operatorController, loginController;
+    private FxmlController  choiceController, operatorController, loginController;
     
 
     protected StateController() {
@@ -44,6 +38,7 @@ public class StateController {
 
     public void run(Stage primaryStage) {
 
+        Parent login, service, editUser, newUser, deleteUser, choice, report;
         this.primaryStage = primaryStage;
 
         try {
@@ -53,11 +48,10 @@ public class StateController {
 
             FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("../view/service_entry.fxml"));
             service = serviceLoader.load();
-            sec = serviceLoader.getController();
 
             FXMLLoader choiceLoader = new FXMLLoader(getClass().getResource("../view/choice.fxml"));
             choice = choiceLoader.load();
-            cc = choiceLoader.getController();
+            choiceController = choiceLoader.getController();
 
             FXMLLoader editUserLoader = new FXMLLoader(getClass().getResource("../view/edit_user.fxml"));
             editUser = editUserLoader.load();
@@ -104,9 +98,8 @@ public class StateController {
             currentScene = serviceScene;
         else if(v == View.CHOICE) {
             currentScene = choiceScene;
-            System.out.println(cc);
-            cc.updateUser();
-            cc.viewLoad();
+            choiceController.updateUser();
+            choiceController.viewLoad();
         }
         else if(v == View.NEW_USER) {
             currentScene = newUserScene;
@@ -122,9 +115,6 @@ public class StateController {
         }
         else if(v == View.REPORTS)
             currentScene = reportScene;
-
-        //Set stylesheet for current
-        //currentScene.getStylesheets().add(getClass().getResource("../view/css/app.css").toExternalForm());
 
         primaryStage.setScene(currentScene);
         primaryStage.show();

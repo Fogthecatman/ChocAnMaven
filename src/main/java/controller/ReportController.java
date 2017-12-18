@@ -1,22 +1,14 @@
 package controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import util.FileHandler;
-
-import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class ReportController {
 
     private FileHandler fh;
     private DatabaseController db;
-
-    private enum ReportType { MEMBER, PROVIDER, MANAGER }
 
     public ReportController() {
         fh = new FileHandler();

@@ -9,12 +9,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import model.User;
 import util.Regex;
 
-import java.awt.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -196,7 +192,7 @@ public class OperatorController implements Initializable, FxmlController {
         sc.setView(View.CHOICE);
     }
 
-    public void clearNewFields(){
+    private void clearNewFields(){
         nameField.clear();
         addressField.clear();
         cityField.clear();
@@ -205,7 +201,7 @@ public class OperatorController implements Initializable, FxmlController {
         showMessage("");
     }
 
-    public void clearEditFields(){
+    private void clearEditFields(){
         idField.clear();
         nameField.clear();
         addressField.clear();
@@ -217,7 +213,7 @@ public class OperatorController implements Initializable, FxmlController {
         idField.setDisable(false);
     }
 
-    public void clearDeleteFields(){
+    private void clearDeleteFields(){
         idField.clear();
         dataArea.clear();
         showMessage("");
@@ -285,10 +281,6 @@ public class OperatorController implements Initializable, FxmlController {
             db.deleteProvider(Integer.parseInt(idField.getText()));
 
         showMessage("User has been deleted.");
-
-    }
-
-    public void changedComboType(ActionEvent actionEvent) {
 
     }
 

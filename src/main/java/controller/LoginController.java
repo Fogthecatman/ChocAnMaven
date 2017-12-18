@@ -1,17 +1,11 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import model.User;
 import util.Regex;
 
-import javax.swing.plaf.nimbus.State;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

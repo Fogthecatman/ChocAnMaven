@@ -1,16 +1,9 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.GridPane;
 import model.User;
-
-import java.awt.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by Jacob on 12/2/17.
