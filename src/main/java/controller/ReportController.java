@@ -27,7 +27,6 @@ public class ReportController {
         ResultSet rs = db.executeSql(db.getProviderWeeklyReport());
 
         createProviderReport(rs);
-
     }
 
     public void actionMemberReport(ActionEvent actionEvent) throws SQLException {
@@ -53,17 +52,17 @@ public class ReportController {
         while(rs.next()) {
           String memName = rs.getString("mem_name");
           int memId = rs.getInt("mem_id");
-          String memberReport = rs.getString("mem_name");
-          memberReport += String.format("\n%d", rs.getInt("mem_id"));
-          memberReport += String.format("\n%s", rs.getString("mem_addr"));
-          memberReport += String.format("\n%s", rs.getString("mem_city"));
-          memberReport += String.format("\n%s", rs.getString("mem_state"));
-          memberReport += String.format("\n%s", rs.getInt("mem_zip"));
+          String memberReport = "Name: " + rs.getString("mem_name");
+          memberReport += String.format("\nID: %d", rs.getInt("mem_id"));
+          memberReport += String.format("\nAddress: %s, ", rs.getString("mem_addr"));
+          memberReport += String.format("%s, ", rs.getString("mem_city"));
+          memberReport += String.format("%s ", rs.getString("mem_state"));
+          memberReport += String.format("%s", rs.getInt("mem_zip"));
           memberReport += "\nServices received:";
           do{
-            memberReport += String.format("\n\t%s", rs.getString("serv_dte"));
-            memberReport += String.format("\n\t%s", rs.getString("prov_name"));
-            memberReport += String.format("\n\t%s\n", rs.getString("serv_name"));
+            memberReport += String.format("\n\tService Date: %s", rs.getString("serv_dte"));
+            memberReport += String.format("\n\tProvider Name: %s", rs.getString("prov_name"));
+            memberReport += String.format("\n\tService Name: %s\n", rs.getString("serv_name"));
           }while(rs.next() && memName.equals(rs.getString("mem_name")));
           rs.previous();
           fh.writeMemberReport(memberReport, folderpath, memName, memId);
@@ -86,10 +85,10 @@ public class ReportController {
             numOfConsul = 0,
             overallFeeTot = 0;
         while(rs.next()){
-          managerReport += String.format("%d", rs.getInt("prov_id"));
-          managerReport += String.format("\n%s", rs.getString("prov_name"));
-          managerReport += String.format("\n%s", rs.getInt("Consultations"));
-          managerReport += String.format("\n$%s\n\n", rs.getInt("TotalServFee"));
+          managerReport += String.format("Provider ID: %d", rs.getInt("prov_id"));
+          managerReport += String.format("\nProvider Name: %s", rs.getString("prov_name"));
+          managerReport += String.format("\nTotal Consultations: %s", rs.getInt("Consultations"));
+          managerReport += String.format("\nTotal Service Fee: $%s\n\n", rs.getInt("TotalServFee"));
           numOfProv++;
           numOfConsul += rs.getInt("Consultations");
           overallFeeTot += rs.getInt("TotalServFee");
@@ -109,25 +108,24 @@ public class ReportController {
           System.out.println("No report to generate.");
           return;
         }
-        //rs.previous();
 
         int totalFee = 0, totalConsultations = 0;
         while(rs.next()) {
           String proName = rs.getString("prov_name");
           int proId = rs.getInt("prov_id");
-          String providerReport = rs.getString("prov_name");
-          providerReport += String.format("\n%d", rs.getInt("prov_id"));
-          providerReport += String.format("\n%s", rs.getString("prov_addr"));
-          providerReport += String.format("\n%s", rs.getString("prov_city"));
-          providerReport += String.format("\n%s", rs.getString("prov_state"));
-          providerReport += String.format("\n%s", rs.getInt("prov_zip"));
+          String providerReport = "Name: " + rs.getString("prov_name");
+          providerReport += String.format("\nID: %d", rs.getInt("prov_id"));
+          providerReport += String.format("\nAddress: %s,", rs.getString("prov_addr"));
+          providerReport += String.format(" %s, ", rs.getString("prov_city"));
+          providerReport += String.format("%s ", rs.getString("prov_state"));
+          providerReport += String.format("%s", rs.getInt("prov_zip"));
           providerReport += "\nServices provided:";
           do{
-            providerReport += String.format("\n\t%s", rs.getString("serv_dte"));
-            providerReport += String.format("\n\t%s", rs.getDate("tim_stmp"));
-            providerReport += String.format("\n\t%s", rs.getString("mem_name"));
-            providerReport += String.format("\n\t%s", rs.getInt("serv_id"));
-            providerReport += String.format("\n\t$%d\n", rs.getInt("serv_fee"));
+            providerReport += String.format("\n\tService Date: %s", rs.getString("serv_dte"));
+            providerReport += String.format("\n\tSubmission Date: %s", rs.getDate("tim_stmp"));
+            providerReport += String.format("\n\tMember Name: %s", rs.getString("mem_name"));
+            providerReport += String.format("\n\tService Code: %s", rs.getInt("serv_id"));
+            providerReport += String.format("\n\tService Fee: $%d\n", rs.getInt("serv_fee"));
             totalFee += rs.getInt("serv_fee");
             totalConsultations++;
           }while(rs.next() && proName.equals(rs.getString("prov_name")));
@@ -135,6 +133,27 @@ public class ReportController {
           providerReport += String.format("\nTotal number of consultations: %s", totalConsultations);
           providerReport += String.format("\nTotal fee for the week: $%s", totalFee);
           fh.writeProviderReport(providerReport, folderpath, proName, proId);
+        }
+
+        createEFT(folderpath);
+        System.out.println("done");
+    }
+
+
+    private void createEFT(String weeklyPath) throws SQLException{
+        String folderpath = fh.createEFTWeeklyFolder(weeklyPath);
+
+        ResultSet rs = db.executeSql(db.getProviderWeeklyFee());
+
+        if(rs.isLast()){
+            System.out.println("No report to generate.");
+            return;
+        }
+        while(rs.next()) {
+            String providerEFT = "Name: " + rs.getString("prov_name");
+            providerEFT += String.format("\nID: %d", rs.getInt("prov_id"));
+            providerEFT += String.format("\nTotal Fee: %s", rs.getString("total_fee"));
+            fh.writeEFT(providerEFT, folderpath, rs.getString("prov_name"));
         }
 
         System.out.println("done");

@@ -114,14 +114,14 @@ public class DatabaseController {
      * getProviderWeeklyReport and just pass the total and account number
      * into the command that writes to file. Or we can just use this command.
      */
-    public String getProviderWeeklyFee(int proNumber) {
+    public String getProviderWeeklyFee() {
         return String.format("select prov.prov_id, \n " +
-                " SUM(servhs.serv_fee) \n " +
+                " prov.prov_name, \n " +
+                " SUM(servhs.serv_fee) total_fee \n " +
                 "  from prov_tbl prov \n " +
                 "  join serv_his_tbl servhs \n " +
                 "    on servhs.prov_id = prov.prov_id \n " +
-                "  where prov.prov_id = %d \n " +
-                "  group by prov.prov_id", proNumber);
+                "  group by prov.prov_id, prov.prov_name");
     }
 
     /**

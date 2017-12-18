@@ -42,6 +42,23 @@ public class FileHandler {
         }
     }
 
+    public void writeEFT(String report, String path, String provName){
+        LocalDate ld = LocalDate.now();
+        String fileName = provName + "_EFT_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";
+        File file = new File(path + fileName);
+
+        try{
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(report);
+            bw.close();
+        }
+        catch(IOException ex){
+            System.out.println("File could not be created");
+        }
+    }
+
     public void writeManagerReport(String report, String path){
         LocalDate ld = LocalDate.now();
         String fileName = "ManagerReport_" + DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld) + ".txt";
@@ -63,6 +80,15 @@ public class FileHandler {
         LocalDate ld = LocalDate.now();
         String date = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(ld).toString();
         File folderPath = new File(path + date );
+
+        if(!folderPath.exists())
+            folderPath.mkdir();
+
+        return folderPath.getPath() + "/";
+    }
+
+    public String createEFTWeeklyFolder(String path){
+        File folderPath = new File(path + "eft" );
 
         if(!folderPath.exists())
             folderPath.mkdir();

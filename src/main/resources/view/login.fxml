@@ -10,7 +10,7 @@
 <GridPane alignment="center" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <JFXTextField fx:id="userField" labelFloat="true" promptText="User ID" GridPane.rowIndex="5" />
-      <JFXButton style="-fx-background-color: e3e3e3;" text="Submit" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#submit">
+      <JFXButton style="-fx-background-color: e3e3e3;" text="Login" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#submit">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

@@ -25,7 +25,7 @@ public class StateController {
     private Parent login, service, editUser, newUser, deleteUser, choice, report;
     private Scene currentScene, loginScene, serviceScene, editUserScene, newUserScene, deleteUserScene, choiceScene, reportScene;
     private Stage primaryStage;
-    private FxmlController sec, cc, operatorController;
+    private FxmlController sec, cc, operatorController, loginController;
     
 
     protected StateController() {
@@ -49,6 +49,7 @@ public class StateController {
         try {
             FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("../view/login.fxml"));
             login = loginLoader.load();
+            loginController = loginLoader.getController();
 
             FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("../view/service_entry.fxml"));
             service = serviceLoader.load();
@@ -97,6 +98,7 @@ public class StateController {
 
         if(v == View.LOGIN) {
             currentScene = loginScene;
+            loginController.viewLoad();
         }
         else if(v == View.SERVICE_ENTRY)
             currentScene = serviceScene;

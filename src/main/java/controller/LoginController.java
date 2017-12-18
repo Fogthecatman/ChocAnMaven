@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.User;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  *
  * TO FIX: combobutton needs to be reset after logout and login
  */
-public class LoginController {
+public class LoginController implements FxmlController {
 
     public Label errorLabel;
     private StateController sc;
@@ -34,6 +35,11 @@ public class LoginController {
         userField = new JFXTextField();
         db = DatabaseController.getInstance();
         u = User.getInstance();
+    }
+
+    @Override
+    public void viewLoad() {
+        errorLabel.setText("");
     }
 
 
@@ -78,7 +84,7 @@ public class LoginController {
         boolean valid = validate(Integer.parseInt(userField.getText()));
 
         if(!valid) {
-            showError("Invalid Provider number.");
+            showError("Invalid ID number.");
         }
         else{
             userField.setText(""); //Clearing text for if user logs out.
@@ -101,4 +107,8 @@ public class LoginController {
     }
 
 
+    @Override
+    public void updateUser() {
+
+    }
 }

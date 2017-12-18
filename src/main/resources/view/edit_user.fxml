@@ -64,6 +64,12 @@
          <Insets left="20.0" />
       </GridPane.margin>
       </JFXButton>
+      <JFXButton onAction="#resetEdit" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </JFXButton>
+
       <JFXButton onAction="#cancelEdit" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: e3e3e3;" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="20.0" />

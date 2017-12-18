@@ -38,7 +38,8 @@ public class OperatorController implements Initializable, FxmlController {
 
     private StateController sc;
     private DatabaseController db;
-    private String view;
+    private boolean deleteSearched;
+    private boolean editSearched;
 
     public OperatorController() {
         sc = StateController.getInstance();
@@ -53,6 +54,8 @@ public class OperatorController implements Initializable, FxmlController {
     @Override
     public void viewLoad() {
         checkAcntSuspension.setVisible(true);
+        deleteSearched = false;
+        editSearched = false;
 
         userTypeComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue value, String old, String newVal) {
@@ -108,7 +111,12 @@ public class OperatorController implements Initializable, FxmlController {
                 checkAcntSuspension.setSelected(acctFlag);
 
         }
+        else{
+            showMessage("Invalid User ID.");
+            return;
+        }
 
+        editSearched = true;
         idField.setDisable(true);
 
     }
@@ -157,7 +165,12 @@ public class OperatorController implements Initializable, FxmlController {
             dataArea.setText(deleteUserText);
 
         }
+        else{
+            showMessage("Invalid User ID.");
+            return;
+        }
 
+        deleteSearched = true;
         idField.setDisable(true);
     }
     
@@ -241,7 +254,7 @@ public class OperatorController implements Initializable, FxmlController {
     }
 
     public void submitEditUser(ActionEvent actionEvent) {
-        if(!validateFields())
+        if(!validateFields() || !editSearched)
             return;
 
         int id = Integer.parseInt(idField.getText());
@@ -263,6 +276,15 @@ public class OperatorController implements Initializable, FxmlController {
     }
 
     public void submitDeleteUser(ActionEvent actionEvent) {
+        if(!deleteSearched)
+            return;
+
+        if(userTypeComboBox.getValue().equals("Member"))
+            db.deleteMember(Integer.parseInt(idField.getText()));
+        else
+            db.deleteProvider(Integer.parseInt(idField.getText()));
+
+        showMessage("User has been deleted.");
 
     }
 
@@ -304,4 +326,7 @@ public class OperatorController implements Initializable, FxmlController {
         return errorMsg.length() == 0;
     }
 
+    public void resetEdit(ActionEvent actionEvent) { clearEditFields(); }
+
+    public void resetDelete(ActionEvent actionEvent) { clearDeleteFields(); }
 }
