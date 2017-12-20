@@ -1,0 +1,11 @@
+Name: Helen Harper
+ID: 169701618
+Address: 670-2081 Amet, Rd., Grand Island, NE 60869
+Services received:
+	Service Date: 03/18/1995
+	Provider Name: Sodales Nisi
+	Service Name: Triamcinolone Acetonide
+
+	Service Date: 03/18/1995
+	Provider Name: Sodales Nisi
+	Service Name: Omeprazole (Rx)

@@ -1,0 +1,24 @@
+Name: Test McTest
+ID: 100000000
+Address: 1598 Sed Street, Evansville, IN 96652
+Services provided:
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Eagan Arnett
+	Service Code: 100278
+	Service Fee: $67
+
+	Service Date: 12-13-2017
+	Submission Date: 2017-12-14
+	Member Name: Eagan Arnett
+	Service Code: 883948
+	Service Fee: $100
+
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Eagan Arnett
+	Service Code: 993628
+	Service Fee: $24
+
+Total number of consultations: 3
+Total fee for the week: $191

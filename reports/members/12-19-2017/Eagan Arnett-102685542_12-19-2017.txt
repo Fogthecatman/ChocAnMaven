@@ -1,0 +1,15 @@
+Name: Eagan Arnett
+ID: 102685542
+Address: 6203 Sit Street, Rock Springs, WY 26590
+Services received:
+	Service Date: 03/18/1995
+	Provider Name: Test McTest
+	Service Name: Atenolol
+
+	Service Date: 12-13-2017
+	Provider Name: Test McTest
+	Service Name: aerobic exercise
+
+	Service Date: 03/18/1995
+	Provider Name: Test McTest
+	Service Name: Triamterene/Hydrochlorothiazide

@@ -288,7 +288,7 @@ public class OperatorController implements Initializable, FxmlController {
         errorLabel.setText(error);
     }
 
-    public boolean validateFields() {
+    private boolean validateFields() {
 
         String errorMsg = "";
 

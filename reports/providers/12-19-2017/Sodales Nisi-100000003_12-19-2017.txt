@@ -1,0 +1,18 @@
+Name: Sodales Nisi
+ID: 100000003
+Address: 407-3122 Auctor Rd., Little Rock, AR 32136
+Services provided:
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Helen Harper
+	Service Code: 217089
+	Service Fee: $68
+
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Helen Harper
+	Service Code: 966954
+	Service Fee: $96
+
+Total number of consultations: 9
+Total fee for the week: $589

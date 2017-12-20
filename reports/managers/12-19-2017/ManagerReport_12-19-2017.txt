@@ -1,0 +1,24 @@
+Provider ID: 100000000
+Provider Name: Test McTest
+Total Consultations: 3
+Total Service Fee: $191
+
+Provider ID: 100000001
+Provider Name: Risus Nulla
+Total Consultations: 2
+Total Service Fee: $160
+
+Provider ID: 100000002
+Provider Name: Nulla Facilisis
+Total Consultations: 2
+Total Service Fee: $74
+
+Provider ID: 100000003
+Provider Name: Sodales Nisi
+Total Consultations: 2
+Total Service Fee: $164
+
+
+Total number of providers: 4
+Total number of consultations: 9
+Total service fee: $589

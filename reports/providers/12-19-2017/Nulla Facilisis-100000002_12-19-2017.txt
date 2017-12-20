@@ -1,0 +1,18 @@
+Name: Nulla Facilisis
+ID: 100000002
+Address: 7367 Pharetra St., Tacoma, WA 93123
+Services provided:
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Dominic Carney
+	Service Code: 167792
+	Service Fee: $68
+
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Dominic Carney
+	Service Code: 972871
+	Service Fee: $6
+
+Total number of consultations: 7
+Total fee for the week: $425

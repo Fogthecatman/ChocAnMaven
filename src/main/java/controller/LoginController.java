@@ -38,7 +38,7 @@ public class LoginController implements FxmlController {
 
 
     //Validates id user enters in LoginView
-    public boolean validate(int id) throws SQLException{
+    private boolean validate(int id) throws SQLException{
 
         ResultSet rs;
         String role;

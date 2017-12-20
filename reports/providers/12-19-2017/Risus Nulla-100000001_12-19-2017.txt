@@ -1,0 +1,18 @@
+Name: Risus Nulla
+ID: 100000001
+Address: 1598 Sed Street, Evansville, IN 96652
+Services provided:
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Dylan Munoz
+	Service Code: 123179
+	Service Fee: $74
+
+	Service Date: 03/18/1995
+	Submission Date: 2017-12-14
+	Member Name: Dylan Munoz
+	Service Code: 978679
+	Service Fee: $86
+
+Total number of consultations: 5
+Total fee for the week: $351
