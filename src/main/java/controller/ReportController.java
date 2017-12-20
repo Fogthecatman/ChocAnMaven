@@ -5,6 +5,12 @@ import util.FileHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+* This class is used to handle all building of all the reports into a giant string.
+* It then passes the String into the file handler class where it will then be printed
+* to a file.
+*/
+
 public class ReportController {
 
     private FileHandler fh;
@@ -17,6 +23,10 @@ public class ReportController {
         sc = StateController.getInstance();
     }
 
+    /**
+    * Action events to handle report writing when the operator asks for a report to be written
+    * when he presses a button. 
+    */
     public void actionProviderReport(ActionEvent actionEvent) throws SQLException {
         ResultSet rs = db.executeSql(db.getProviderWeeklyReport());
 
@@ -35,6 +45,9 @@ public class ReportController {
         createManagerReport(rs);
     }
 
+    /**
+    * Used to build out the member report and then writes it to file.
+    */
     private void createMemberReport(ResultSet rs) throws SQLException {
         if(rs.isLast()){
           System.out.println("No report to generate.");
@@ -58,6 +71,7 @@ public class ReportController {
             memberReport += String.format("\n\tProvider Name: %s", rs.getString("prov_name"));
             memberReport += String.format("\n\tService Name: %s\n", rs.getString("serv_name"));
           }while(rs.next() && memName.equals(rs.getString("mem_name")));
+          //Need this because the result set will be one record ahead due to the rs.next() from the do while
           rs.previous();
           fh.writeMemberReport(memberReport, folderpath, memName, memId);
         }
@@ -65,6 +79,9 @@ public class ReportController {
         System.out.println("done");
     }
 
+    /**
+    * Used to build out the manager report and then writes it to file.
+    */
     private void createManagerReport(ResultSet rs) throws SQLException {
         String managerReport = "";
 
@@ -93,7 +110,10 @@ public class ReportController {
         fh.writeManagerReport(managerReport, folderpath);
 
     }
-
+    
+    /**
+    * Used to build out the provider report and then writes it to file.
+    */
     private void createProviderReport(ResultSet rs) throws SQLException {
 
         String folderpath = fh.createWeeklyFolder("reports/providers/");
@@ -123,6 +143,7 @@ public class ReportController {
             totalFee += rs.getInt("serv_fee");
             totalConsultations++;
           }while(rs.next() && proName.equals(rs.getString("prov_name")));
+          //Need this because the result set will be one record ahead due to the rs.next() from the do while
           rs.previous();
           providerReport += String.format("\nTotal number of consultations: %s", totalConsultations);
           providerReport += String.format("\nTotal fee for the week: $%s", totalFee);
@@ -133,7 +154,9 @@ public class ReportController {
         System.out.println("done");
     }
 
-
+    /**
+    * Used to build out the eft report and then writes it to file.
+    */
     private void createEFT(String weeklyPath) throws SQLException{
         String folderpath = fh.createEFTWeeklyFolder(weeklyPath);
 

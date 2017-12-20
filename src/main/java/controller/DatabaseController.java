@@ -6,7 +6,9 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * Created by Ben on 11/14/17.
+ * This class is used to build all the strings for querying the database.
+ * It is also responsible for executing sql calls to the database and returning
+ * a result set. 
  */
 public class DatabaseController {
 
@@ -91,11 +93,7 @@ public class DatabaseController {
     }
 
     /**
-     * Gets the Managers weekly report. To get the total number of providers
-     * just get the length of the result set since only providers who provided
-     * services would be in the service history table. Total number of
-     * consultations and overall fee would be a variable += res.get(column) which
-     * would just keep a total count while looping through the result set.
+     * Gets the Managers weekly report.
      */
     public String getManagersWeeklyReport() {
         return String.format("select prov.prov_id, \n " +
@@ -109,9 +107,7 @@ public class DatabaseController {
     }
 
     /**
-     * Gets the providers weekly fee. We could just use the data from the
-     * getProviderWeeklyReport and just pass the total and account number
-     * into the command that writes to file. Or we can just use this command.
+     * Gets the providers weekly fee.
      */
     public String getProviderWeeklyFee() {
         return String.format("select prov.prov_id, \n " +
@@ -124,12 +120,7 @@ public class DatabaseController {
     }
 
     /**
-     * Pretty self explanatory but used to get the info for the weekly
-     * provider reports. Don't need to join on the service table because
-     * all the information is on the serv_his_tbl. For total number of
-     * consoltations that would just be a simple count of the number of rows
-     * returned. For total fee would be a simple totalFee += res.get('serv_fee')
-     * inside the while loop when looping over the result set.
+     * Gets the provider weekly reports. 
      */
     public String getProviderWeeklyReport() {
         return String.format("select prov.*, \n " +
@@ -147,11 +138,7 @@ public class DatabaseController {
     }
 
     /**
-     * Pretty self explanatory but used to get the info for the weekly
-     * member reports. Did a select * from member table because we need all the
-     * columns except the flag one. To iterate over this all you would need is
-     * the member info off of the first record and then iterate over the result
-     * set just grabbing the serv_dte, provider name and the service name.
+     * Gets the member weekly reports.
      */
     public String getMemberWeeklyReport() {
         return String.format("select mem.*, \n " +
@@ -190,6 +177,9 @@ public class DatabaseController {
                     provID, memID, servID, servFee, servCom, servDate);
     }
 
+    /**
+    * Gets the service fee for a given service number. 
+    */
     public String getServFee(int servNumber)
     {
         return String.format("select serv_fee from serv_tbl where serv_id = %d",
@@ -205,10 +195,6 @@ public class DatabaseController {
     }
 
     /**
-     * These methods are used for validating that a service, member or provider
-     * actually exist within the database.
-     */
-    /**
      * The service validation is written like this to check to see if a service
      * number is passed in if it is it will use that. If it is not then the query
      * assumes that the provider quering for all the service codes so it does a
@@ -219,6 +205,10 @@ public class DatabaseController {
         return String.format("select * from serv_tbl where serv_id = %d", servNumber);
     }
 
+    /**
+     * These methods are used for validating that a service, member or provider
+     * actually exist within the database.
+     */
     public String getChocAnMemberValidation(int memNumber)
     {
         return String.format("select * from mem_tbl where mem_id = %d and acc_err_flg = 0", memNumber);
@@ -239,12 +229,15 @@ public class DatabaseController {
         return String.format("select oper_name name from oper_tbl where oper_id = %d", oprNumber);
     }
 
+    /**
+    * Used when adding new members or providers.
+    */
     public  String getLargestID(String table)
     {
         return String.format("select MAX(%s_id) id FROM %s_tbl", table, table);
     }
 
-    //String array coming in is all properties to create a new user
+
     public void createNewMember(String name, String address, String city,
                                 String state, int zip)
     {
@@ -284,7 +277,6 @@ public class DatabaseController {
                                 String state, int zip, int errFlg )
     {
         String query;
-        //Maybe need the form to pass in what was changed.
         query = String.format("update mem_tbl " +
                       "set mem_name = '%s', mem_addr = '%s', mem_city = '%s', mem_state = '%s', mem_zip = '%s', acc_err_flg = %d" +
                         "where mem_id = %d ",
@@ -292,7 +284,6 @@ public class DatabaseController {
         executeUpdateQuery(query);
     }
 
-    //String array coming in is all properties to create a new user
     public void createNewProvider(String name, String address, String city,
                                 String state, int zip)
     {
@@ -332,7 +323,6 @@ public class DatabaseController {
                                 String state, int zip)
     {
         String query;
-        //Maybe need the form to pass in what was changed.
         query = String.format("update prov_tbl " +
                       "set prov_name = '%s', prov_addr = '%s', prov_city = '%s', prov_state = '%s', prov_zip = '%s'" +
                         "where prov_id = %d ",
