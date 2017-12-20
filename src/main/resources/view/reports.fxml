@@ -24,6 +24,13 @@
             <Insets bottom="20.0" />
          </GridPane.margin>
        </JFXButton>
+
+       <JFXButton fx:id="backBtn" onAction="#cancel" style="-fx-background-color: e3e3e3;" text="Back" GridPane.rowIndex="4">
+           <GridPane.margin>
+               <Insets bottom="20.0" />
+           </GridPane.margin>
+       </JFXButton>
+
    </children>
    <columnConstraints>
       <ColumnConstraints />

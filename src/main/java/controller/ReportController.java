@@ -9,10 +9,12 @@ public class ReportController {
 
     private FileHandler fh;
     private DatabaseController db;
+    private StateController sc;
 
     public ReportController() {
         fh = new FileHandler();
         db = DatabaseController.getInstance();
+        sc = StateController.getInstance();
     }
 
     public void actionProviderReport(ActionEvent actionEvent) throws SQLException {
@@ -152,4 +154,5 @@ public class ReportController {
     }
 
 
+    public void cancel(ActionEvent actionEvent) { sc.setView(View.CHOICE); }
 }
