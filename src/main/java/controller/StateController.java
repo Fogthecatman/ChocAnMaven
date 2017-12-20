@@ -42,28 +42,29 @@ public class StateController {
         this.primaryStage = primaryStage;
 
         try {
-            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("../view/login.fxml"));
+
+            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             login = loginLoader.load();
             loginController = loginLoader.getController();
 
-            FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("../view/service_entry.fxml"));
+            FXMLLoader serviceLoader = new FXMLLoader(getClass().getResource("/view/service_entry.fxml"));
             service = serviceLoader.load();
 
-            FXMLLoader choiceLoader = new FXMLLoader(getClass().getResource("../view/choice.fxml"));
+            FXMLLoader choiceLoader = new FXMLLoader(getClass().getResource("/view/choice.fxml"));
             choice = choiceLoader.load();
             choiceController = choiceLoader.getController();
 
-            FXMLLoader editUserLoader = new FXMLLoader(getClass().getResource("../view/edit_user.fxml"));
+            FXMLLoader editUserLoader = new FXMLLoader(getClass().getResource("/view/edit_user.fxml"));
             editUser = editUserLoader.load();
             operatorController = editUserLoader.getController();
 
-            FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("../view/new_user.fxml"));
+            FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("/view/new_user.fxml"));
             newUser = newUserLoader.load();
 
-            FXMLLoader deleteUserLoader = new FXMLLoader(getClass().getResource("../view/delete_user.fxml"));
+            FXMLLoader deleteUserLoader = new FXMLLoader(getClass().getResource("/view/delete_user.fxml"));
             deleteUser = deleteUserLoader.load();
 
-            FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("../view/reports.fxml"));
+            FXMLLoader reportLoader = new FXMLLoader(getClass().getResource("/view/reports.fxml"));
             report = reportLoader.load();
 
             loginScene = new Scene(login, 600, 700);
